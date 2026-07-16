@@ -143,7 +143,7 @@ function FloatingPhotos() {
   }
 `}</style>
 
-        <div className="relative w-full h-[30rem]">
+        <div className="relative w-full h-72 md:h-[30rem]">
           {PHOTOS.map((photo, i) => {
             const fs = FLOAT_STYLES[i];
             // spread the three cards across the width: left, center, right
@@ -169,7 +169,7 @@ function FloatingPhotos() {
                   />
 
                   {/* description overlay */}
-                  <div className="float-overlay absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 to-transparent flex flex-col justify-end p-3 pt-10">
+                  <div className="float-overlay max-md:opacity-100 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 to-transparent flex flex-col justify-end p-3 pt-10">
                     <p
                         className="text-[#f5ede0] text-xs font-semibold leading-tight"
                         style={{ fontFamily: "'Archivo', system-ui, sans-serif" }}
@@ -1283,7 +1283,7 @@ export default function Portfolio() {
                   </a>
                 </div>
               </div>
-                <div className="md:col-span-2 hidden md:block">
+                <div className="md:col-span-2">
                 <FloatingPhotos />
               </div>
             </div>
