@@ -1,4 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
+import photo1 from './images/photo1.jpeg'
+import photo2 from './images/photo2.jpeg'
+import photo3 from './images/photo3.jpeg'
 
 const EXPERIENCE = [
   {
@@ -13,14 +16,15 @@ const EXPERIENCE = [
     stack: ["", ""],
   },
   {
-    role: "Teaching / Lab Assistant",
-    org: "Your University",
-    period: "Jan 2026 — May 2026",
+    role: "Marketing Lead",
+    org: "Google Developer Student Club @ UC",
+    period: "Aug. 2024 – April 2024",
     points: [
-      "Placeholder — swap in tutoring, club leadership, freelance work, or hackathons.",
-      "Anything where you were responsible for an outcome counts as experience.",
+      "Managed social media accounts to generate community engagement and networking opportunities among club members and external partners.",
+      "Collaborated with local organizations to plan and execute technical workshops",
+        "Facilitate weekly club meetings, ensuring effective communication and project alignment among team members."
     ],
-    stack: ["Java", "C++"],
+    stack: [],
   },
 ];
 
@@ -29,9 +33,9 @@ const PROJECTS = [
     name: "ASL Interpreter",
     tagline: "Real-time sign language recognition in the browser",
     description:
-        "Browser-based American Sign Language interpreter using live hand-landmark tracking. Runs entirely client-side — no backend, no data leaves the device. Live video is processed frame-by-frame and recognized signs are spoken aloud.",
+        "Browser-based American Sign Language interpreter using live hand-landmark tracking. Live video is processed frame-by-frame and recognized signs are spoken aloud.",
     stack: ["React", "TensorFlow.js", "MediaPipe Hands", "Web Speech API", "Vite"],
-    link: "#",
+    link: "https://github.com/dhyansuresh/asl-interpreter.git",
     highlight: true,
   },
   {
@@ -40,7 +44,7 @@ const PROJECTS = [
     description:
         "Fullstack application that allows world cup enthusiasts to find local groups to watch matches with.",
     stack: ["JavaScript", "React", "Firebase(Auth/Firestore)", "Vite", "React Router"],
-    link: "#",
+    link: "https://github.com/dhyansuresh/wc-watch-party-bloomhacks2026.git",
     highlight: false,
   },
   {
@@ -49,19 +53,30 @@ const PROJECTS = [
     description:
         "A Chrome extension that saves leads from any page with one click, persists them locally, and syncs across devices through a realtime cloud database.",
     stack: ["JavaScript", "Chrome Extension API", "Firebase", "localStorage"],
-    link: "#",
+    link: "https://github.com/dhyansuresh/chrome-leads-tracker.git",
     highlight: false,
   },
+  {
+    name: "AI Legal Document Organizer",
+    tagline: "Helps lawyer organize documentation and paperwork via Google Gemini.",
+    description: "This was created at my very first KnightHack.",
+    stack: ["Python", "FastAPI", "Google Gemini AI", "React"],
+    link: "https://github.com/dhyansuresh/morgan-legaltender.git",
+    highlight: false,
+  },
+  {
+    name: "Portfolio Version 1",
+    tagline: "My very first personal site.",
+    description: "This first site from pure HTML/CSS and a very small amount of JavaScript.",
+    stack: ["HMTL/CSS", "JavaScript"],
+    link: "https://github.com/dhyansuresh/personal-site-v1.git"
+  }
 ];
 
 const SKILLS = [
-  { group: "Languages", items: ["JavaScript", "Java", "C", "Python", "HTML/CSS"] },
+  { group: "Languages", items: ["JavaScript", "Java", "C", "Python", "HTML", "CSS"] },
   { group: "Frameworks & Libraries", items: ["React", "Node.js", "TensorFlow.js", "Vite", "Tailwind CSS", "MediaPipe", "FastAPI"] },
-  { group: "Tools & Platforms", items: ["Git/GitHub", "Firebase", "WebStorm", ] },
-  {
-    group: "CS Foundations",
-    items: ["Data Structures", "Algorithm Analysis", "Graph Algorithms", "Sorting & Searching", "OOP"],
-  },
+  { group: "Developer Tools", items: ["Git", "GitHub", "Firebase", "AWS", "Vercel"] },
 ];
 
 const NAV = [
@@ -70,6 +85,117 @@ const NAV = [
   { id: "projects", label: "projects" },
   { id: "skills", label: "skills" },
 ];
+
+
+const PHOTOS = [
+  {
+    src: photo1,
+    title: "OC Game",
+    description: "My partner and I at Orlando City game!",
+  },
+  {
+    src: photo2,
+    title: "Mount Fuji",
+    description: "At Mount Fuji with my sister and her fiance.",
+  },
+  {
+    src: photo3,
+    title: "Puppy",
+    description: "My pupper, Essie Mae!",
+  },
+];
+
+// Each photo floats at a slightly different vertical offset and
+// rotation so they look scattered in space rather than grid-aligned.
+const FLOAT_STYLES = [
+  { top: "0%",   rotate: "-4deg",  animDelay: "0s",    animDur: "6s"  },
+  { top: "26%",  rotate: "3deg",   animDelay: "1.8s",  animDur: "7s"  },
+  { top: "8%",   rotate: "-2deg",  animDelay: "0.9s",  animDur: "6.5s"},
+];
+
+function FloatingPhotos() {
+  return (
+      <>
+        <style>{`
+  @keyframes floatDrift {
+    0%, 100% { transform: var(--base-transform) translateY(0px); }
+    50%       { transform: var(--base-transform) translateY(-12px); }
+  }
+  .float-card {
+    animation: floatDrift var(--dur) ease-in-out var(--delay) infinite;
+    transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.3, 1),
+                box-shadow 0.4s ease;
+    z-index: 1;
+  }
+  .float-card:hover {
+    transform: rotate(0deg) translateY(-8px) scale(1.6) !important;
+    animation-play-state: paused;
+    z-index: 50;
+    box-shadow: 0 28px 72px rgba(0,0,0,0.8),
+                0 0 36px rgba(200,149,108,0.3) !important;
+  }
+  .float-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .float-card:hover .float-overlay {
+    opacity: 1;
+  }
+`}</style>
+
+        <div className="relative w-full h-[30rem]">
+          {PHOTOS.map((photo, i) => {
+            const fs = FLOAT_STYLES[i];
+            // spread the three cards across the width: left, center, right
+            const lefts = ["-4%", "34%", "66%"];
+            const baseTransform = `rotate(${fs.rotate})`;
+            return (
+                <div
+                    key={i}
+                    className="float-card absolute w-32 md:w-36 cursor-pointer rounded-xl overflow-hidden"
+                    style={{
+                      left: lefts[i],
+                      top: fs.top,
+                      "--base-transform": baseTransform,
+                      "--dur": fs.animDur,
+                      "--delay": fs.animDelay,
+                      boxShadow: "0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(200,149,108,0.15)",
+                    }}
+                >
+                  <img
+                      src={photo.src}
+                      alt={photo.title}
+                      className="w-full h-56 md:h-64 object-cover block"
+                  />
+
+                  {/* description overlay */}
+                  <div className="float-overlay absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 to-transparent flex flex-col justify-end p-3 pt-10">
+                    <p
+                        className="text-[#f5ede0] text-xs font-semibold leading-tight"
+                        style={{ fontFamily: "'Archivo', system-ui, sans-serif" }}
+                    >
+                      {photo.title}
+                    </p>
+                    <p
+                        className="text-[#d4b896] text-[10px] mt-1 leading-snug"
+                        style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                    >
+                      {photo.description}
+                    </p>
+                  </div>
+
+                  {/* copper glow ring on hover */}
+                  <div
+                      className="absolute inset-0 rounded-xl pointer-events-none"
+                      style={{ boxShadow: "inset 0 0 0 1.5px rgba(200,149,108,0)" }}
+                  />
+                </div>
+            );
+          })}
+        </div>
+      </>
+  );
+}
 
 // ---------------------------------------------------------------
 // Milky Way intro
@@ -1114,7 +1240,7 @@ export default function Portfolio() {
         </header>
 
         <main className="max-w-5xl mx-auto px-6 relative">
-          {/* ---------- Hero / About ---------- */}
+          {/* ---------- About ---------- */}
           <section id="about" className="pt-16 pb-24">
             <p
                 className="text-xs text-[#5a3820] mb-10 flex items-center gap-2"
@@ -1137,8 +1263,8 @@ export default function Portfolio() {
                   My name is  <span className="text-stone-400">Dhyan Suresh!</span>
                 </h1>
                 <p className="text-[#a87c5a] max-w-lg leading-relaxed mb-8">
-                  I'm Dhyan, a computer science student currently attending the University of Central Florida! (Go Knights!)
-                  I've been honing my technical skills to via hackathon, projects, and classwork! Check out my page to learn more about me!
+                  I'm a computer science student currently attending the University of Central Florida! (Go Knights!)
+                  I've been honing my technical skills via hackathons, projects, and classwork. Check out my page to learn more about me!
                 </p>
                 <div className="flex gap-4">
                   <button
@@ -1157,17 +1283,13 @@ export default function Portfolio() {
                   </a>
                 </div>
               </div>
-              <div className="md:col-span-2 hidden md:block">
-                <HandConstellation />
-                <p
-                    className="text-center text-xs text-[#5a3820] mt-3"
-                    style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-                >
-                  21 landmarks / 60fps — from the ASL Interpreter
-                </p>
+                <div className="md:col-span-2 hidden md:block">
+                <FloatingPhotos />
               </div>
             </div>
+
           </section>
+
 
           {/* ---------- Experience ---------- */}
           <section id="experience" className="pb-24 scroll-mt-20">
@@ -1176,7 +1298,7 @@ export default function Portfolio() {
               {EXPERIENCE.map((job, i) => (
                   <article
                       key={i}
-                      className="bg-[#1c1008]/80 border border-[#3d2410] p-6 sm:p-8 grid sm:grid-cols-4 gap-4"
+                      className="bg-[#1c1008]/80 border border-[#3d2410] p-6 sm:p-8 grid sm:grid-cols-4 gap-4 transition-transform duration-300 hover:-translate-y-2"
                   >
                     <div>
                       <p
@@ -1220,7 +1342,7 @@ export default function Portfolio() {
               {PROJECTS.map((proj) => (
                   <article
                       key={proj.name}
-                      className={`p-6 flex flex-col border transition-transform hover:-translate-y-1 ${
+                      className={`p-6 flex flex-col border transition-transform duration-300 hover:-translate-y-2 ${
                           proj.highlight
                               ? "md:col-span-2 border-[#c8956c]/50 bg-gradient-to-br from-[#261508] to-[#1a0c04]"
                               : "bg-[#1c1008]/80 border-[#3d2410]"
@@ -1293,7 +1415,7 @@ export default function Portfolio() {
                 className="text-xs text-[#7a5538]"
                 style={{ fontFamily: "'IBM Plex Mono', monospace" }}
             >
-              © {new Date().getFullYear()} Dhyan — built with React, somewhere in the Orion Arm
+              © {new Date().getFullYear()} Dhyan Suresh
             </p>
             <div className="flex gap-5 text-sm">
               <a href="https://github.com/dhyansuresh" target="_blank" rel="noreferrer" className="focusable text-[#a87c5a] hover:text-[#e8bfa0]">
@@ -1304,6 +1426,9 @@ export default function Portfolio() {
               </a>
               <a href="mailto:dhyan.sur@gmail.com" className="focusable text-[#a87c5a] hover:text-[#e8bfa0]">
                 Email
+              </a>
+              <a href="resume.com"arget="_blank" rel="noreferrer" className="focusable text-[#a87c5a] hover:text-[#e8bfa0]">
+                  Resume
               </a>
             </div>
           </footer>
