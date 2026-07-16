@@ -207,10 +207,7 @@ function buildGalaxyStars() {
 }
 
 // ---------------------------------------------------------------
-// Stage 2 — inside the Orion arm. The arm becomes a diagonal band
-// of stars across the screen; the neighborhood stars get labels
-// here (at galaxy scale they'd all share Earth's pixel).
-// ---------------------------------------------------------------
+// Stage 2 — inside the Orion arm.
 
 const ORION_EARTH = { x: 47, y: 58 };
 
@@ -323,7 +320,7 @@ function UniverseIntro({ onEnter, arriving }) {
   // radius are touched each frame, plus resets for ones leaving it.
   useEffect(() => {
     if (reducedMotion()) return;
-    const RADIUS = 150; // px — how far the warp reaches
+    const RADIUS = 100; // px — how far the warp reaches
     const STRENGTH = 30; // px — max push right at the cursor
     let raf = 0;
     const displaced = new Set();
@@ -862,7 +859,6 @@ function UniverseIntro({ onEnter, arriving }) {
 
 // ---------------------------------------------------------------
 // Shared pieces
-// ---------------------------------------------------------------
 
 // 21 MediaPipe hand landmarks — a nod to the ASL interpreter.
 const HAND_POINTS = [
@@ -1152,7 +1148,7 @@ export default function Portfolio() {
                     View projects
                   </button>
                   <a
-                      href="https://github.com/"
+                      href="https://github.com/dhyansuresh"
                       target="_blank"
                       rel="noreferrer"
                       className="focusable border border-[#5a3820] text-[#e8d9c8] px-5 py-2.5 text-sm font-medium hover:border-[#c8956c] hover:text-[#e8bfa0] transition-colors"
