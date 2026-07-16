@@ -962,8 +962,8 @@ function UniverseIntro({ onEnter, arriving }) {
               style={{ fontFamily: "'IBM Plex Mono', monospace" }}
           >
             {isGalaxy
-                ? "structure of the milky way · earth rides the orion arm, ~26,000 light-years out"
-                : "the orion (local) arm · our stellar neighborhood, ~3,500 light-years long"}
+                ? "~26,000 light-years out"
+                : "~3,500 light-years out"}
           </p>
           <p
               className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs text-[#7a5538] flex items-center gap-2 whitespace-nowrap"
