@@ -2,14 +2,15 @@ import { useState, useEffect, useMemo, useRef } from "react";
 
 const EXPERIENCE = [
   {
-    role: "Software Development Intern",
-    org: "Your Company Here",
-    period: "May 2026 — Present",
+    role: "Network Technician",
+    org: "West Networks",
+    period: "May 2023 — May 2024",
     points: [
-      "Replace this with what you built and the impact it had.",
-      "Quantify where you can: users, speed, revenue, time saved.",
+      "Built and deployed 100+ portable Peplink BR2 Pro/BR1 routers with rechargeable lithium battery and 4G/5G antennas.",
+      "Configured dual-SIM protocol system enabling devices to switch between cellular providers for optimal performance in remote deployments.",
+      "Monitored global network infrastructure via InControl software, tracking real-time operational status."
     ],
-    stack: ["React", "Node.js"],
+    stack: ["", ""],
   },
   {
     role: "Teaching / Lab Assistant",
@@ -28,35 +29,35 @@ const PROJECTS = [
     name: "ASL Interpreter",
     tagline: "Real-time sign language recognition in the browser",
     description:
-      "Browser-based American Sign Language interpreter using live hand-landmark tracking. Runs entirely client-side — no backend, no data leaves the device. Live video is processed frame-by-frame and recognized signs are spoken aloud.",
+        "Browser-based American Sign Language interpreter using live hand-landmark tracking. Runs entirely client-side — no backend, no data leaves the device. Live video is processed frame-by-frame and recognized signs are spoken aloud.",
     stack: ["React", "TensorFlow.js", "MediaPipe Hands", "Web Speech API", "Vite"],
     link: "#",
     highlight: true,
   },
   {
-    name: "Lead Tracker",
-    tagline: "Chrome extension for capturing and syncing leads",
+    name: "GameDay",
+    tagline: "Web watch party app enabling users to create, join, and manage world cup watch parties.",
     description:
-      "A Chrome extension that saves leads from any page with one click, persists them locally, and syncs across devices through a realtime cloud database.",
-    stack: ["JavaScript", "Chrome Extension API", "Firebase", "localStorage"],
+        "Fullstack application that allows world cup enthusiasts to find local groups to watch matches with.",
+    stack: ["JavaScript", "React", "Firebase(Auth/Firestore)", "Vite", "React Router"],
     link: "#",
     highlight: false,
   },
   {
-    name: "Your Next Project",
-    tagline: "Placeholder — three projects reads better than two",
+    name: "Lead Tracker",
+    tagline: "Chrome extension for capturing and syncing leads",
     description:
-      "Swap this card for a class project, hackathon build, or anything with a repo link. Recruiters click through, so make sure the README is solid.",
-    stack: ["TBD"],
+        "A Chrome extension that saves leads from any page with one click, persists them locally, and syncs across devices through a realtime cloud database.",
+    stack: ["JavaScript", "Chrome Extension API", "Firebase", "localStorage"],
     link: "#",
     highlight: false,
   },
 ];
 
 const SKILLS = [
-  { group: "Languages", items: ["JavaScript", "Java", "C++", "Python", "HTML/CSS", "SQL"] },
-  { group: "Frameworks & Libraries", items: ["React", "Node.js", "TensorFlow.js", "Vite", "Tailwind CSS"] },
-  { group: "Tools & Platforms", items: ["Git & GitHub", "Firebase", "WebStorm", "Chrome DevTools", "Linux"] },
+  { group: "Languages", items: ["JavaScript", "Java", "C", "Python", "HTML/CSS"] },
+  { group: "Frameworks & Libraries", items: ["React", "Node.js", "TensorFlow.js", "Vite", "Tailwind CSS", "MediaPipe", "FastAPI"] },
+  { group: "Tools & Platforms", items: ["Git/GitHub", "Firebase", "WebStorm", ] },
   {
     group: "CS Foundations",
     items: ["Data Structures", "Algorithm Analysis", "Graph Algorithms", "Sorting & Searching", "OOP"],
@@ -71,19 +72,8 @@ const NAV = [
 ];
 
 // ---------------------------------------------------------------
-// Milky Way intro — two stages, following the classic
+// Milky Way intro
 // "Structure of the Milky Way" model:
-//
-//   Stage 1 "galaxy": the full disk with its named arms — Perseus,
-//     Cygnus, Centaurus, Sagittarius — plus the short Orion (local)
-//     arm, the spur between Sagittarius and Perseus where the Sun
-//     actually lives. Only Earth is called out here.
-//   Stage 2 "orion": zoomed into the Orion arm itself, seen as a
-//     band of stars, with the famous neighborhood stars labeled.
-//
-//   scroll down: galaxy -> orion -> portfolio
-//   scroll up:   portfolio -> orion -> galaxy
-// ---------------------------------------------------------------
 
 const GALAXY = {
   cx: 50, // center x, % of viewport width
@@ -295,22 +285,22 @@ function UniverseIntro({ onEnter, arriving }) {
   const orionWrapRef = useRef(null);
 
   const reducedMotion = () =>
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const galaxyStars = useMemo(buildGalaxyStars, []);
   const orionStars = useMemo(buildOrionStars, []);
   const fieldStars = useMemo(
-    () =>
-      Array.from({ length: 200 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 1.6 + 0.3,
-        opacity: Math.random() * 0.5 + 0.15,
-        twinkle: Math.random() * 4 + 2,
-        delay: Math.random() * 5,
-      })),
-    []
+      () =>
+          Array.from({ length: 200 }, (_, i) => ({
+            id: i,
+            x: Math.random() * 100,
+            y: Math.random() * 100,
+            size: Math.random() * 1.6 + 0.3,
+            opacity: Math.random() * 0.5 + 0.15,
+            twinkle: Math.random() * 4 + 2,
+            delay: Math.random() * 5,
+          })),
+      []
   );
 
   // Returning from the portfolio: mount zoomed-in and pull back out.
@@ -321,7 +311,7 @@ function UniverseIntro({ onEnter, arriving }) {
       return;
     }
     const raf = requestAnimationFrame(() =>
-      requestAnimationFrame(() => setOrionAnim(""))
+        requestAnimationFrame(() => setOrionAnim(""))
     );
     return () => cancelAnimationFrame(raf);
   }, [arriving]);
@@ -418,10 +408,10 @@ function UniverseIntro({ onEnter, arriving }) {
       setStage("orion");
       setOrionAnim("appear-pre");
       requestAnimationFrame(() =>
-        requestAnimationFrame(() => {
-          setOrionAnim("");
-          setTimeout(() => (busy.current = false), 700);
-        })
+          requestAnimationFrame(() => {
+            setOrionAnim("");
+            setTimeout(() => (busy.current = false), 700);
+          })
       );
     }, 1000);
   };
@@ -446,10 +436,10 @@ function UniverseIntro({ onEnter, arriving }) {
       setStage("galaxy");
       setGalaxyAnim("zoom-pre");
       requestAnimationFrame(() =>
-        requestAnimationFrame(() => {
-          setGalaxyAnim("");
-          setTimeout(() => (busy.current = false), 1200);
-        })
+          requestAnimationFrame(() => {
+            setGalaxyAnim("");
+            setTimeout(() => (busy.current = false), 1200);
+          })
       );
     }, 650);
   };
@@ -490,14 +480,14 @@ function UniverseIntro({ onEnter, arriving }) {
   const origin = isGalaxy ? SUN_POS : ORION_EARTH;
 
   return (
-    <div
-      className="fixed inset-0 z-50 overflow-hidden select-none"
-      style={{
-        background:
-          "radial-gradient(ellipse at 50% 40%, #0a1026 0%, #060a17 45%, #02040a 100%)",
-      }}
-    >
-      <style>{`
+      <div
+          className="fixed inset-0 z-50 overflow-hidden select-none"
+          style={{
+            background:
+                "radial-gradient(ellipse at 50% 40%, #120a04 0%, #0a0603 45%, #040200 100%)",
+          }}
+      >
+        <style>{`
         @keyframes twinkle { 0%,100% { opacity: var(--o); } 50% { opacity: 0.08; } }
         @keyframes pulseRing {
           0% { transform: translate(-50%,-50%) scale(1); opacity: 0.9; }
@@ -529,344 +519,344 @@ function UniverseIntro({ onEnter, arriving }) {
         }
       `}</style>
 
-      <div className={`stage-scene ${zoomClass}`}>
-        {/* Layer 1 — distant background stars */}
-        <div ref={fieldWrapRef} className="parallax-layer">
-          {fieldStars.map((s) => (
-            <div
-              key={s.id}
-              className="warp-star absolute rounded-full bg-white"
-              style={{
-                left: `${s.x}%`,
-                top: `${s.y}%`,
-                width: `${s.size}px`,
-                height: `${s.size}px`,
-                "--o": s.opacity,
-                opacity: s.opacity,
-                animation: `twinkle ${s.twinkle}s ease-in-out ${s.delay}s infinite`,
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Layer 2 — the active stage */}
-        <div className="parallax-layer">
-          {isGalaxy ? (
-            <>
-              {/* Galactic haze */}
-              <div
-                className="absolute"
-                style={{
-                  left: `${GALAXY.cx}%`,
-                  top: `${GALAXY.cy}%`,
-                  width: "115vw",
-                  height: "56vw",
-                  transform: `translate(-50%,-50%) rotate(${(GALAXY.tilt * 180) / Math.PI}deg)`,
-                  background:
-                    "radial-gradient(ellipse, rgba(150,170,230,0.17) 0%, rgba(120,140,210,0.08) 45%, transparent 72%)",
-                  filter: "blur(8px)",
-                  borderRadius: "50%",
-                }}
-              />
-              <div
-                className="absolute"
-                style={{
-                  left: `${GALAXY.cx}%`,
-                  top: `${GALAXY.cy}%`,
-                  width: "28vw",
-                  height: "14vw",
-                  transform: `translate(-50%,-50%) rotate(${(GALAXY.tilt * 180) / Math.PI}deg)`,
-                  background:
-                    "radial-gradient(ellipse, rgba(255,236,200,0.5) 0%, rgba(255,220,160,0.16) 45%, transparent 70%)",
-                  filter: "blur(6px)",
-                  borderRadius: "50%",
-                }}
-              />
-
-              {/* Galaxy star particles — in their own container so the
-                  warp effect can map children 1:1 to star data */}
-              <div ref={galaxyWrapRef} className="absolute inset-0 pointer-events-none">
-                {galaxyStars.map((s) => (
-                  <div
+        <div className={`stage-scene ${zoomClass}`}>
+          {/* Layer 1 — distant background stars */}
+          <div ref={fieldWrapRef} className="parallax-layer">
+            {fieldStars.map((s) => (
+                <div
                     key={s.id}
-                    className="warp-star absolute rounded-full"
+                    className="warp-star absolute rounded-full bg-[#f5ede0]"
                     style={{
                       left: `${s.x}%`,
                       top: `${s.y}%`,
                       width: `${s.size}px`,
                       height: `${s.size}px`,
-                      backgroundColor: s.color,
+                      "--o": s.opacity,
                       opacity: s.opacity,
+                      animation: `twinkle ${s.twinkle}s ease-in-out ${s.delay}s infinite`,
                     }}
+                />
+            ))}
+          </div>
+
+          {/* Layer 2 — the active stage */}
+          <div className="parallax-layer">
+            {isGalaxy ? (
+                <>
+                  {/* Galactic haze */}
+                  <div
+                      className="absolute"
+                      style={{
+                        left: `${GALAXY.cx}%`,
+                        top: `${GALAXY.cy}%`,
+                        width: "115vw",
+                        height: "56vw",
+                        transform: `translate(-50%,-50%) rotate(${(GALAXY.tilt * 180) / Math.PI}deg)`,
+                        background:
+                            "radial-gradient(ellipse, rgba(180,120,60,0.14) 0%, rgba(140,80,30,0.07) 45%, transparent 72%)",
+                        filter: "blur(8px)",
+                        borderRadius: "50%",
+                      }}
                   />
-                ))}
-              </div>
+                  <div
+                      className="absolute"
+                      style={{
+                        left: `${GALAXY.cx}%`,
+                        top: `${GALAXY.cy}%`,
+                        width: "28vw",
+                        height: "14vw",
+                        transform: `translate(-50%,-50%) rotate(${(GALAXY.tilt * 180) / Math.PI}deg)`,
+                        background:
+                            "radial-gradient(ellipse, rgba(255,236,200,0.5) 0%, rgba(255,220,160,0.16) 45%, transparent 70%)",
+                        filter: "blur(6px)",
+                        borderRadius: "50%",
+                      }}
+                  />
 
-              {/* Arm name labels */}
-              {ARM_LABELS.map((l) => (
-                <p
-                  key={l.name}
-                  className={`absolute whitespace-nowrap ${
-                    l.orion ? "text-sky-300" : "text-slate-400"
-                  }`}
-                  style={{
-                    left: `${l.x}%`,
-                    top: `${l.y}%`,
-                    transform: "translate(-50%,-50%)",
-                    fontSize: "11px",
-                    fontFamily: "'IBM Plex Mono', monospace",
-                    textShadow: "0 0 6px rgba(2,4,10,0.9)",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {l.name}
-                </p>
-              ))}
+                  {/* Galaxy star particles — in their own container so the
+                  warp effect can map children 1:1 to star data */}
+                  <div ref={galaxyWrapRef} className="absolute inset-0 pointer-events-none">
+                    {galaxyStars.map((s) => (
+                        <div
+                            key={s.id}
+                            className="warp-star absolute rounded-full"
+                            style={{
+                              left: `${s.x}%`,
+                              top: `${s.y}%`,
+                              width: `${s.size}px`,
+                              height: `${s.size}px`,
+                              backgroundColor: s.color,
+                              opacity: s.opacity,
+                            }}
+                        />
+                    ))}
+                  </div>
 
-              {/* Earth marker — on the Orion arm. The button is a large
+                  {/* Arm name labels */}
+                  {ARM_LABELS.map((l) => (
+                      <p
+                          key={l.name}
+                          className={`absolute whitespace-nowrap ${
+                              l.orion ? "text-[#e8bfa0]" : "text-[#a87c5a]"
+                          }`}
+                          style={{
+                            left: `${l.x}%`,
+                            top: `${l.y}%`,
+                            transform: "translate(-50%,-50%)",
+                            fontSize: "11px",
+                            fontFamily: "'IBM Plex Mono', monospace",
+                            textShadow: "0 0 6px rgba(2,4,10,0.9)",
+                            letterSpacing: "0.05em",
+                          }}
+                      >
+                        {l.name}
+                      </p>
+                  ))}
+
+                  {/* Earth marker — on the Orion arm. The button is a large
                   invisible 130px circle so it's easy to hit even though
                   the dot itself is tiny. */}
-              <button
-                onClick={goOrion}
-                aria-label="Zoom into the Orion arm"
-                className="focusable absolute rounded-full group"
-                style={{
-                  left: `${SUN_POS.x}%`,
-                  top: `${SUN_POS.y}%`,
-                  transform: "translate(-50%,-50%)",
-                  width: "130px",
-                  height: "130px",
-                  cursor: "pointer",
-                  background: "transparent",
-                }}
-              >
-                {/* faint hover halo so the big hit area announces itself */}
-                <span
-                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background:
-                      "radial-gradient(circle, rgba(120,190,255,0.14) 0%, transparent 65%)",
-                  }}
-                />
-                <span
-                  className="absolute rounded-full border border-sky-300/70"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    width: "18px",
-                    height: "18px",
-                    animation: "pulseRing 2.4s ease-out infinite",
-                  }}
-                />
-                <span
-                  className="absolute rounded-full"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    transform: "translate(-50%,-50%)",
-                    width: "6px",
-                    height: "6px",
-                    background: "radial-gradient(circle at 35% 35%, #bfe4ff, #4f9be0)",
-                    boxShadow: "0 0 10px 3px rgba(120,190,255,0.8)",
-                  }}
-                />
-              </button>
+                  <button
+                      onClick={goOrion}
+                      aria-label="Zoom into the Orion arm"
+                      className="focusable absolute rounded-full group"
+                      style={{
+                        left: `${SUN_POS.x}%`,
+                        top: `${SUN_POS.y}%`,
+                        transform: "translate(-50%,-50%)",
+                        width: "130px",
+                        height: "130px",
+                        cursor: "pointer",
+                        background: "transparent",
+                      }}
+                  >
+                    {/* faint hover halo so the big hit area announces itself */}
+                    <span
+                        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{
+                          background:
+                              "radial-gradient(circle, rgba(200,149,108,0.14) 0%, transparent 65%)",
+                        }}
+                    />
+                    <span
+                        className="absolute rounded-full border border-[#e8bfa0]/70"
+                        style={{
+                          left: "50%",
+                          top: "50%",
+                          width: "18px",
+                          height: "18px",
+                          animation: "pulseRing 2.4s ease-out infinite",
+                        }}
+                    />
+                    <span
+                        className="absolute rounded-full"
+                        style={{
+                          left: "50%",
+                          top: "50%",
+                          transform: "translate(-50%,-50%)",
+                          width: "6px",
+                          height: "6px",
+                          background: "radial-gradient(circle at 35% 35%, #f5ede0, #c8956c)",
+                          boxShadow: "0 0 10px 3px rgba(220,160,90,0.8)",
+                        }}
+                    />
+                  </button>
 
-              {/* "click me" — only Earth is labeled on the main page */}
-              {zoomClass === "" && (
-                <div
-                  className="absolute pointer-events-none flex flex-col items-center"
-                  style={{
-                    left: `${SUN_POS.x}%`,
-                    top: `calc(${SUN_POS.y}% - 100px)`,
-                    animation: "bobLabel 3s ease-in-out infinite",
-                  }}
-                >
+                  {/* "click me" — only Earth is labeled on the main page */}
+                  {zoomClass === "" && (
+                      <div
+                          className="absolute pointer-events-none flex flex-col items-center"
+                          style={{
+                            left: `${SUN_POS.x}%`,
+                            top: `calc(${SUN_POS.y}% - 100px)`,
+                            animation: "bobLabel 3s ease-in-out infinite",
+                          }}
+                      >
                   <span
-                    className="text-sky-200 text-sm whitespace-nowrap"
-                    style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                      className="text-[#f5ede0] text-sm whitespace-nowrap"
+                      style={{ fontFamily: "'IBM Plex Mono', monospace" }}
                   >
                     earth · click me
                   </span>
-                  <svg width="12" height="52" viewBox="0 0 12 52" aria-hidden="true">
-                    <line
-                      x1="6" y1="4" x2="6" y2="42"
-                      stroke="rgba(186,222,255,0.7)"
-                      strokeWidth="1.5"
-                      strokeDasharray="4 4"
-                    />
-                    <path d="M6 52 L1 42 L11 42 Z" fill="rgba(186,222,255,0.7)" />
-                  </svg>
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              {/* Orion arm haze — the band in perspective */}
-              <div
-                className="absolute"
-                style={{
-                  left: "50%",
-                  top: "55%",
-                  width: "160vw",
-                  height: "46vw",
-                  transform: "translate(-50%,-50%) rotate(-30deg)",
-                  background:
-                    "radial-gradient(ellipse, rgba(150,175,235,0.15) 0%, rgba(120,140,210,0.06) 50%, transparent 72%)",
-                  filter: "blur(10px)",
-                  borderRadius: "50%",
-                }}
-              />
-
-              {/* Arm stars — own container for the warp effect */}
-              <div ref={orionWrapRef} className="absolute inset-0 pointer-events-none">
-                {orionStars.map((s) => (
+                        <svg width="12" height="52" viewBox="0 0 12 52" aria-hidden="true">
+                          <line
+                              x1="6" y1="4" x2="6" y2="42"
+                              stroke="rgba(245,210,160,0.75)"
+                              strokeWidth="1.5"
+                              strokeDasharray="4 4"
+                          />
+                          <path d="M6 52 L1 42 L11 42 Z" fill="rgba(245,210,160,0.75)" />
+                        </svg>
+                      </div>
+                  )}
+                </>
+            ) : (
+                <>
+                  {/* Orion arm haze — the band in perspective */}
                   <div
-                    key={s.id}
-                    className="warp-star absolute rounded-full"
-                    style={{
-                      left: `${s.x}%`,
-                      top: `${s.y}%`,
-                      width: `${s.size}px`,
-                      height: `${s.size}px`,
-                      backgroundColor: s.color,
-                      opacity: s.opacity,
-                    }}
+                      className="absolute"
+                      style={{
+                        left: "50%",
+                        top: "55%",
+                        width: "160vw",
+                        height: "46vw",
+                        transform: "translate(-50%,-50%) rotate(-30deg)",
+                        background:
+                            "radial-gradient(ellipse, rgba(180,120,60,0.13) 0%, rgba(140,80,30,0.05) 50%, transparent 72%)",
+                        filter: "blur(10px)",
+                        borderRadius: "50%",
+                      }}
                   />
-                ))}
-              </div>
 
-              {/* Labeled neighborhood stars — they live here now */}
-              {ORION_LABELED_STARS.map((s) => (
-                <div
-                  key={s.name}
-                  className="absolute"
-                  style={{
-                    left: `${s.x}%`,
-                    top: `${s.y}%`,
-                    transform: "translate(-50%,-50%)",
-                  }}
-                >
+                  {/* Arm stars — own container for the warp effect */}
+                  <div ref={orionWrapRef} className="absolute inset-0 pointer-events-none">
+                    {orionStars.map((s) => (
+                        <div
+                            key={s.id}
+                            className="warp-star absolute rounded-full"
+                            style={{
+                              left: `${s.x}%`,
+                              top: `${s.y}%`,
+                              width: `${s.size}px`,
+                              height: `${s.size}px`,
+                              backgroundColor: s.color,
+                              opacity: s.opacity,
+                            }}
+                        />
+                    ))}
+                  </div>
+
+                  {/* Labeled neighborhood stars — they live here now */}
+                  {ORION_LABELED_STARS.map((s) => (
+                      <div
+                          key={s.name}
+                          className="absolute"
+                          style={{
+                            left: `${s.x}%`,
+                            top: `${s.y}%`,
+                            transform: "translate(-50%,-50%)",
+                          }}
+                      >
                   <span
-                    className="block rounded-full mx-auto"
-                    style={{
-                      width: `${s.size}px`,
-                      height: `${s.size}px`,
-                      backgroundColor: s.color || "#eef4ff",
-                      boxShadow: `0 0 8px 2px ${s.color || "#b9d4ff"}55`,
-                    }}
+                      className="block rounded-full mx-auto"
+                      style={{
+                        width: `${s.size}px`,
+                        height: `${s.size}px`,
+                        backgroundColor: s.color || "#eef4ff",
+                        boxShadow: `0 0 8px 2px ${s.color || "#b9d4ff"}55`,
+                      }}
                   />
-                  <p
-                    className="text-center mt-1.5 whitespace-nowrap"
-                    style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                        <p
+                            className="text-center mt-1.5 whitespace-nowrap"
+                            style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                        >
+                          <span className="block text-[11px] text-[#d4b896]">{s.name}</span>
+                          <span className="block text-[10px] text-[#7a5538]">{s.dist}</span>
+                        </p>
+                      </div>
+                  ))}
+
+                  {/* Earth — click to land. Large invisible 150px hit circle. */}
+                  <button
+                      onClick={goPortfolio}
+                      aria-label="Land on Earth and open the portfolio"
+                      className="focusable absolute rounded-full group"
+                      style={{
+                        left: `${ORION_EARTH.x}%`,
+                        top: `${ORION_EARTH.y}%`,
+                        transform: "translate(-50%,-50%)",
+                        width: "150px",
+                        height: "150px",
+                        cursor: "pointer",
+                        background: "transparent",
+                      }}
                   >
-                    <span className="block text-[11px] text-slate-300">{s.name}</span>
-                    <span className="block text-[10px] text-slate-500">{s.dist}</span>
-                  </p>
-                </div>
-              ))}
+                <span
+                    className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background:
+                          "radial-gradient(circle, rgba(200,149,108,0.14) 0%, transparent 65%)",
+                    }}
+                />
+                    <span
+                        className="absolute rounded-full border border-[#e8bfa0]/70"
+                        style={{
+                          left: "50%",
+                          top: "50%",
+                          width: "28px",
+                          height: "28px",
+                          animation: "pulseRing 2.4s ease-out infinite",
+                        }}
+                    />
+                    <span
+                        className="absolute rounded-full"
+                        style={{
+                          left: "50%",
+                          top: "50%",
+                          transform: "translate(-50%,-50%)",
+                          width: "12px",
+                          height: "12px",
+                          background:
+                              "radial-gradient(circle at 35% 35%, #f5ede0, #c8956c 55%, #8b5e3c)",
+                          boxShadow: "0 0 14px 4px rgba(220,160,90,0.8)",
+                        }}
+                    />
+                  </button>
 
-              {/* Earth — click to land. Large invisible 150px hit circle. */}
-              <button
-                onClick={goPortfolio}
-                aria-label="Land on Earth and open the portfolio"
-                className="focusable absolute rounded-full group"
-                style={{
-                  left: `${ORION_EARTH.x}%`,
-                  top: `${ORION_EARTH.y}%`,
-                  transform: "translate(-50%,-50%)",
-                  width: "150px",
-                  height: "150px",
-                  cursor: "pointer",
-                  background: "transparent",
-                }}
-              >
-                <span
-                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background:
-                      "radial-gradient(circle, rgba(120,190,255,0.14) 0%, transparent 65%)",
-                  }}
-                />
-                <span
-                  className="absolute rounded-full border border-sky-300/70"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    width: "28px",
-                    height: "28px",
-                    animation: "pulseRing 2.4s ease-out infinite",
-                  }}
-                />
-                <span
-                  className="absolute rounded-full"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    transform: "translate(-50%,-50%)",
-                    width: "12px",
-                    height: "12px",
-                    background:
-                      "radial-gradient(circle at 35% 35%, #9fd8ff, #2f7fd4 55%, #14406f)",
-                    boxShadow: "0 0 14px 4px rgba(110,180,255,0.75)",
-                  }}
-                />
-              </button>
-
-              {zoomClass === "" && (
-                <div
-                  className="absolute pointer-events-none flex flex-col items-center"
-                  style={{
-                    left: `${ORION_EARTH.x}%`,
-                    top: `calc(${ORION_EARTH.y}% - 104px)`,
-                    animation: "bobLabel 3s ease-in-out infinite",
-                  }}
-                >
+                  {zoomClass === "" && (
+                      <div
+                          className="absolute pointer-events-none flex flex-col items-center"
+                          style={{
+                            left: `${ORION_EARTH.x}%`,
+                            top: `calc(${ORION_EARTH.y}% - 104px)`,
+                            animation: "bobLabel 3s ease-in-out infinite",
+                          }}
+                      >
                   <span
-                    className="text-sky-200 text-sm whitespace-nowrap"
-                    style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                      className="text-[#f5ede0] text-sm whitespace-nowrap"
+                      style={{ fontFamily: "'IBM Plex Mono', monospace" }}
                   >
                     earth · click me
                   </span>
-                  <svg width="12" height="52" viewBox="0 0 12 52" aria-hidden="true">
-                    <line
-                      x1="6" y1="4" x2="6" y2="42"
-                      stroke="rgba(186,222,255,0.7)"
-                      strokeWidth="1.5"
-                      strokeDasharray="4 4"
-                    />
-                    <path d="M6 52 L1 42 L11 42 Z" fill="rgba(186,222,255,0.7)" />
-                  </svg>
-                </div>
-              )}
-            </>
-          )}
-        </div>
+                        <svg width="12" height="52" viewBox="0 0 12 52" aria-hidden="true">
+                          <line
+                              x1="6" y1="4" x2="6" y2="42"
+                              stroke="rgba(245,210,160,0.75)"
+                              strokeWidth="1.5"
+                              strokeDasharray="4 4"
+                          />
+                          <path d="M6 52 L1 42 L11 42 Z" fill="rgba(245,210,160,0.75)" />
+                        </svg>
+                      </div>
+                  )}
+                </>
+            )}
+          </div>
 
-        {/* Captions */}
-        <p
-          className="absolute top-8 left-1/2 -translate-x-1/2 text-[11px] tracking-widest uppercase text-slate-500 text-center px-4"
-          style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-        >
-          {isGalaxy
-            ? "structure of the milky way · earth rides the orion arm, ~26,000 light-years out"
-            : "the orion (local) arm · our stellar neighborhood, ~3,500 light-years long"}
-        </p>
-        <p
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs text-slate-500 flex items-center gap-2 whitespace-nowrap"
-          style={{
-            fontFamily: "'IBM Plex Mono', monospace",
-            animation: "hintFade 2.6s ease-in-out infinite",
-          }}
-        >
-          {isGalaxy ? (
-            <span>scroll down to fly into the orion arm ↓</span>
-          ) : (
-            <span>↓ scroll down to land on earth · scroll up for the full galaxy ↑</span>
-          )}
-        </p>
+          {/* Captions */}
+          <p
+              className="absolute top-8 left-1/2 -translate-x-1/2 text-[11px] tracking-widest uppercase text-[#7a5538] text-center px-4"
+              style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+          >
+            {isGalaxy
+                ? "structure of the milky way · earth rides the orion arm, ~26,000 light-years out"
+                : "the orion (local) arm · our stellar neighborhood, ~3,500 light-years long"}
+          </p>
+          <p
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs text-[#7a5538] flex items-center gap-2 whitespace-nowrap"
+              style={{
+                fontFamily: "'IBM Plex Mono', monospace",
+                animation: "hintFade 2.6s ease-in-out infinite",
+              }}
+          >
+            {isGalaxy ? (
+                <span>scroll down to fly into the orion arm ↓</span>
+            ) : (
+                <span>↓ scroll down to land on earth · scroll up for the full galaxy ↑</span>
+            )}
+          </p>
+        </div>
       </div>
-    </div>
   );
 }
 
@@ -893,82 +883,82 @@ const HAND_EDGES = [
 
 function HandConstellation() {
   return (
-    <svg
-      viewBox="0 0 160 210"
-      className="w-full max-w-xs mx-auto"
-      aria-hidden="true"
-      style={{ overflow: "visible" }}
-    >
-      {HAND_EDGES.map(([a, b], i) => (
-        <line
-          key={i}
-          x1={HAND_POINTS[a][0]}
-          y1={HAND_POINTS[a][1]}
-          x2={HAND_POINTS[b][0]}
-          y2={HAND_POINTS[b][1]}
-          stroke="#6EB4FF"
-          strokeOpacity="0.4"
-          strokeWidth="1.2"
-        />
-      ))}
-      {HAND_POINTS.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={i % 4 === 0 ? 3.4 : 2.4} fill="#DCEBFF">
-          <animate
-            attributeName="opacity"
-            values="1;0.3;1"
-            dur={`${2.4 + (i % 5) * 0.5}s`}
-            repeatCount="indefinite"
-            begin={`${(i % 7) * 0.3}s`}
-          />
-        </circle>
-      ))}
-    </svg>
+      <svg
+          viewBox="0 0 160 210"
+          className="w-full max-w-xs mx-auto"
+          aria-hidden="true"
+          style={{ overflow: "visible" }}
+      >
+        {HAND_EDGES.map(([a, b], i) => (
+            <line
+                key={i}
+                x1={HAND_POINTS[a][0]}
+                y1={HAND_POINTS[a][1]}
+                x2={HAND_POINTS[b][0]}
+                y2={HAND_POINTS[b][1]}
+                stroke="#c8956c"
+                strokeOpacity="0.4"
+                strokeWidth="1.2"
+            />
+        ))}
+        {HAND_POINTS.map(([x, y], i) => (
+            <circle key={i} cx={x} cy={y} r={i % 4 === 0 ? 3.4 : 2.4} fill="#f5ede0">
+              <animate
+                  attributeName="opacity"
+                  values="1;0.3;1"
+                  dur={`${2.4 + (i % 5) * 0.5}s`}
+                  repeatCount="indefinite"
+                  begin={`${(i % 7) * 0.3}s`}
+              />
+            </circle>
+        ))}
+      </svg>
   );
 }
 
 function SectionLabel({ children }) {
   return (
-    <div className="flex items-center gap-3 mb-8">
+      <div className="flex items-center gap-3 mb-8">
       <span
-        className="text-xs tracking-widest uppercase text-sky-400"
-        style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+          className="text-xs tracking-widest uppercase text-[#c8956c]"
+          style={{ fontFamily: "'IBM Plex Mono', monospace" }}
       >
         ~/{children}
       </span>
-      <div className="flex-1 h-px bg-slate-800" />
-    </div>
+        <div className="flex-1 h-px bg-[#3d2410]" />
+      </div>
   );
 }
 
 // Faint ambient starfield behind the whole portfolio.
 function AmbientStars() {
   const stars = useMemo(
-    () =>
-      Array.from({ length: 90 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 1.4 + 0.4,
-        opacity: Math.random() * 0.3 + 0.08,
-      })),
-    []
+      () =>
+          Array.from({ length: 90 }, (_, i) => ({
+            id: i,
+            x: Math.random() * 100,
+            y: Math.random() * 100,
+            size: Math.random() * 1.4 + 0.4,
+            opacity: Math.random() * 0.3 + 0.08,
+          })),
+      []
   );
   return (
-    <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
-      {stars.map((s) => (
-        <div
-          key={s.id}
-          className="absolute rounded-full bg-white"
-          style={{
-            left: `${s.x}%`,
-            top: `${s.y}%`,
-            width: `${s.size}px`,
-            height: `${s.size}px`,
-            opacity: s.opacity,
-          }}
-        />
-      ))}
-    </div>
+      <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
+        {stars.map((s) => (
+            <div
+                key={s.id}
+                className="absolute rounded-full bg-[#f5ede0]"
+                style={{
+                  left: `${s.x}%`,
+                  top: `${s.y}%`,
+                  width: `${s.size}px`,
+                  height: `${s.size}px`,
+                  opacity: s.opacity,
+                }}
+            />
+        ))}
+      </div>
   );
 }
 
@@ -1047,16 +1037,16 @@ export default function Portfolio() {
   }
 
   return (
-    <div
-      className="min-h-screen text-slate-200 relative"
-      style={{
-        background:
-          "radial-gradient(ellipse at 50% -10%, #0d1530 0%, #070b18 45%, #04060f 100%)",
-        fontFamily: "'IBM Plex Sans', system-ui, sans-serif",
-        animation: "pageReveal 0.7s ease-out",
-      }}
-    >
-      <style>{`
+      <div
+          className="min-h-screen text-[#e8d9c8] relative"
+          style={{
+            background:
+                "radial-gradient(ellipse at 50% -10%, #1a0f06 0%, #0e0804 45%, #050200 100%)",
+            fontFamily: "'IBM Plex Sans', system-ui, sans-serif",
+            animation: "pageReveal 0.7s ease-out",
+          }}
+      >
+        <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
         html { scroll-behavior: smooth; }
         @keyframes pageReveal {
@@ -1069,263 +1059,259 @@ export default function Portfolio() {
           svg animate { display: none; }
         }
         .display { font-family: 'Archivo', system-ui, sans-serif; font-stretch: 125%; }
-        .focusable:focus-visible { outline: 2px solid #6EB4FF; outline-offset: 3px; border-radius: 2px; }
+        .focusable:focus-visible { outline: 2px solid #c8956c; outline-offset: 3px; border-radius: 2px; }
       `}</style>
 
-      <AmbientStars />
+        <AmbientStars />
 
-      {/* ---------- Nav ---------- */}
-      <header className="sticky top-0 z-40 border-b border-slate-800/80 backdrop-blur bg-[#070b18]/75">
-        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <button
-            onClick={() => scrollTo("about")}
-            className="display font-bold text-lg tracking-tight text-slate-100 focusable"
-          >
-            dhyan<span className="text-sky-400">.dev</span>
-          </button>
+        {/* ---------- Nav ---------- */}
+        <header className="sticky top-0 z-40 border-b border-[#3d2410]/80 backdrop-blur bg-[#0a0603]/80
+">
+          <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+            <button
+                onClick={() => scrollTo("about")}
+                className="display font-bold text-lg tracking-tight text-[#f5ede0] focusable"
+            >
+              dhyan<span className="text-[#c8956c]">.dev</span>
+            </button>
 
-          <nav className="hidden sm:flex gap-6" aria-label="Sections">
-            {NAV.map(({ id, label }) => (
-              <button
-                key={id}
-                onClick={() => scrollTo(id)}
-                className={`text-sm focusable transition-colors ${
-                  active === id
-                    ? "text-sky-400 font-semibold"
-                    : "text-slate-500 hover:text-slate-200"
-                }`}
+            <nav className="hidden sm:flex gap-6" aria-label="Sections">
+              {NAV.map(({ id, label }) => (
+                  <button
+                      key={id}
+                      onClick={() => scrollTo(id)}
+                      className={`text-sm focusable transition-colors ${
+                          active === id
+                              ? "text-[#c8956c] font-semibold"
+                              : "text-[#7a5538] hover:text-[#e8d9c8]"
+                      }`}
+                      style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                  >
+                    {label}
+                  </button>
+              ))}
+            </nav>
+
+            <button
+                className="sm:hidden focusable text-sm text-[#d4b896]"
+                onClick={() => setMenuOpen((m) => !m)}
+                aria-expanded={menuOpen}
                 style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-              >
-                {label}
-              </button>
-            ))}
-          </nav>
+            >
+              {menuOpen ? "close" : "menu"}
+            </button>
+          </div>
+          {menuOpen && (
+              <nav className="sm:hidden border-t border-[#3d2410] bg-[#120a04] px-6 py-3 flex flex-col gap-3">
+                {NAV.map(({ id, label }) => (
+                    <button
+                        key={id}
+                        onClick={() => scrollTo(id)}
+                        className="text-left text-sm text-[#d4b896] focusable"
+                        style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                    >
+                      ~/{label}
+                    </button>
+                ))}
+              </nav>
+          )}
+        </header>
 
-          <button
-            className="sm:hidden focusable text-sm text-slate-300"
-            onClick={() => setMenuOpen((m) => !m)}
-            aria-expanded={menuOpen}
-            style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-          >
-            {menuOpen ? "close" : "menu"}
-          </button>
-        </div>
-        {menuOpen && (
-          <nav className="sm:hidden border-t border-slate-800 bg-[#0a1122] px-6 py-3 flex flex-col gap-3">
-            {NAV.map(({ id, label }) => (
-              <button
-                key={id}
-                onClick={() => scrollTo(id)}
-                className="text-left text-sm text-slate-300 focusable"
+        <main className="max-w-5xl mx-auto px-6 relative">
+          {/* ---------- Hero / About ---------- */}
+          <section id="about" className="pt-16 pb-24">
+            <p
+                className="text-xs text-[#5a3820] mb-10 flex items-center gap-2"
                 style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-              >
-                ~/{label}
-              </button>
-            ))}
-          </nav>
-        )}
-      </header>
-
-      <main className="max-w-5xl mx-auto px-6 relative">
-        {/* ---------- Hero / About ---------- */}
-        <section id="about" className="pt-16 pb-24">
-          <p
-            className="text-xs text-slate-600 mb-10 flex items-center gap-2"
-            style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-          >
-            <span aria-hidden="true">↑</span>
-            <span>scroll up from here to fly back into the orion arm</span>
-          </p>
-          <div className="grid md:grid-cols-5 gap-12 items-center">
-            <div className="md:col-span-3">
-              <p
-                className="text-sky-400 text-sm mb-4 tracking-widest uppercase"
-                style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-              >
-                cs student · builder · orlando, fl
-              </p>
-              <h1 className="display font-black text-5xl sm:text-6xl leading-none tracking-tight mb-6 text-slate-50">
-                I build software
-                <br />
-                that <span className="text-sky-400">watches, listens,</span>
-                <br />
-                and helps.
-              </h1>
-              <p className="text-slate-400 max-w-lg leading-relaxed mb-8">
-                I'm Dhyan, a computer science student focused on the web platform —
-                from real-time machine learning in the browser to Chrome extensions
-                people actually use. Currently deep in data structures, calculus,
-                and shipping side projects. Long-term goal: found something worth
-                building.
-              </p>
-              <div className="flex gap-4">
-                <button
-                  onClick={() => scrollTo("projects")}
-                  className="focusable bg-sky-500 text-[#04060f] px-5 py-2.5 text-sm font-semibold hover:bg-sky-300 transition-colors"
+            >
+              <span aria-hidden="true">↑</span>
+              <span>scroll up from here to fly back into the orion arm</span>
+            </p>
+            <div className="grid md:grid-cols-5 gap-12 items-center">
+              <div className="md:col-span-3">
+                <p
+                    className="text-[#c8956c] text-sm mb-4 tracking-widest uppercase"
+                    style={{ fontFamily: "'IBM Plex Mono', monospace" }}
                 >
-                  View projects
-                </button>
-                <a
-                  href="https://github.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="focusable border border-slate-600 text-slate-200 px-5 py-2.5 text-sm font-medium hover:border-sky-400 hover:text-sky-300 transition-colors"
+                  cs student · builder · orlando, fl
+                </p>
+                <h1 className="display font-black text-5xl sm:text-6xl leading-none tracking-tight mb-6 text-[#fdf6ee]">
+                  Hey,
+                  <br />
+                  My name is  <span className="text-stone-400">Dhyan Suresh!</span>
+                </h1>
+                <p className="text-[#a87c5a] max-w-lg leading-relaxed mb-8">
+                  I'm Dhyan, a computer science student currently attending the University of Central Florida! (Go Knights!)
+                  I've been honing my technical skills to via hackathon, projects, and classwork! Check out my page to learn more about me!
+                </p>
+                <div className="flex gap-4">
+                  <button
+                      onClick={() => scrollTo("projects")}
+                      className="focusable bg-[#c8956c] text-[#0a0603] px-5 py-2.5 text-sm font-semibold hover:bg-[#e8bfa0] transition-colors"
+                  >
+                    View projects
+                  </button>
+                  <a
+                      href="https://github.com/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="focusable border border-[#5a3820] text-[#e8d9c8] px-5 py-2.5 text-sm font-medium hover:border-[#c8956c] hover:text-[#e8bfa0] transition-colors"
+                  >
+                    GitHub ↗
+                  </a>
+                </div>
+              </div>
+              <div className="md:col-span-2 hidden md:block">
+                <HandConstellation />
+                <p
+                    className="text-center text-xs text-[#5a3820] mt-3"
+                    style={{ fontFamily: "'IBM Plex Mono', monospace" }}
                 >
-                  GitHub ↗
-                </a>
+                  21 landmarks / 60fps — from the ASL Interpreter
+                </p>
               </div>
             </div>
-            <div className="md:col-span-2 hidden md:block">
-              <HandConstellation />
-              <p
-                className="text-center text-xs text-slate-600 mt-3"
-                style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-              >
-                21 landmarks / 60fps — from the ASL Interpreter
-              </p>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ---------- Experience ---------- */}
-        <section id="experience" className="pb-24 scroll-mt-20">
-          <SectionLabel>experience</SectionLabel>
-          <div className="space-y-6">
-            {EXPERIENCE.map((job, i) => (
-              <article
-                key={i}
-                className="bg-[#0c1428]/80 border border-slate-800 p-6 sm:p-8 grid sm:grid-cols-4 gap-4"
-              >
-                <div>
-                  <p
-                    className="text-xs text-slate-500"
-                    style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+          {/* ---------- Experience ---------- */}
+          <section id="experience" className="pb-24 scroll-mt-20">
+            <SectionLabel>experience</SectionLabel>
+            <div className="space-y-6">
+              {EXPERIENCE.map((job, i) => (
+                  <article
+                      key={i}
+                      className="bg-[#1c1008]/80 border border-[#3d2410] p-6 sm:p-8 grid sm:grid-cols-4 gap-4"
                   >
-                    {job.period}
-                  </p>
-                </div>
-                <div className="sm:col-span-3">
-                  <h3 className="display font-bold text-xl tracking-tight text-slate-100">
-                    {job.role}
-                  </h3>
-                  <p className="text-sky-400 text-sm font-medium mb-3">{job.org}</p>
-                  <ul className="space-y-1.5 text-slate-400 text-sm leading-relaxed list-disc pl-4">
-                    {job.points.map((p, j) => (
-                      <li key={j}>{p}</li>
-                    ))}
-                  </ul>
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {job.stack.map((s) => (
-                      <span
-                        key={s}
-                        className="text-xs px-2 py-0.5 bg-slate-800/80 text-slate-400"
-                        style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                    <div>
+                      <p
+                          className="text-xs text-[#7a5538]"
+                          style={{ fontFamily: "'IBM Plex Mono', monospace" }}
                       >
+                        {job.period}
+                      </p>
+                    </div>
+                    <div className="sm:col-span-3">
+                      <h3 className="display font-bold text-xl tracking-tight text-[#f5ede0]">
+                        {job.role}
+                      </h3>
+                      <p className="text-[#c8956c] text-sm font-medium mb-3">{job.org}</p>
+                      <ul className="space-y-1.5 text-[#a87c5a] text-sm leading-relaxed list-disc pl-4">
+                        {job.points.map((p, j) => (
+                            <li key={j}>{p}</li>
+                        ))}
+                      </ul>
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {job.stack.map((s) => (
+                            <span
+                                key={s}
+                                className="text-xs px-2 py-0.5 bg-[#2a1508]/80 text-[#a87c5a]"
+                                style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                            >
                         {s}
                       </span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+              ))}
+            </div>
+          </section>
 
-        {/* ---------- Projects ---------- */}
-        <section id="projects" className="pb-24 scroll-mt-20">
-          <SectionLabel>projects</SectionLabel>
-          <div className="grid md:grid-cols-3 gap-6">
-            {PROJECTS.map((proj) => (
-              <article
-                key={proj.name}
-                className={`p-6 flex flex-col border transition-transform hover:-translate-y-1 ${
-                  proj.highlight
-                    ? "md:col-span-2 border-sky-500/50 bg-gradient-to-br from-[#0d1a36] to-[#0a1122]"
-                    : "bg-[#0c1428]/80 border-slate-800"
-                }`}
-                style={
-                  proj.highlight
-                    ? { boxShadow: "0 0 40px -12px rgba(56,150,255,0.35)" }
-                    : undefined
-                }
-              >
-                <h3 className="display font-bold text-2xl tracking-tight mb-1 text-slate-50">
-                  {proj.name}
-                </h3>
-                <p className="text-sm mb-3 text-sky-400">{proj.tagline}</p>
-                <p className="text-sm leading-relaxed flex-1 text-slate-400">
-                  {proj.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mt-4 mb-4">
-                  {proj.stack.map((s) => (
-                    <span
-                      key={s}
-                      className="text-xs px-2 py-0.5 bg-slate-800/80 text-slate-400"
-                      style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-                    >
+          {/* ---------- Projects ---------- */}
+          <section id="projects" className="pb-24 scroll-mt-20">
+            <SectionLabel>projects</SectionLabel>
+            <div className="grid md:grid-cols-3 gap-6">
+              {PROJECTS.map((proj) => (
+                  <article
+                      key={proj.name}
+                      className={`p-6 flex flex-col border transition-transform hover:-translate-y-1 ${
+                          proj.highlight
+                              ? "md:col-span-2 border-[#c8956c]/50 bg-gradient-to-br from-[#261508] to-[#1a0c04]"
+                              : "bg-[#1c1008]/80 border-[#3d2410]"
+                      }`}
+                      style={
+                        proj.highlight
+                            ? { boxShadow: "0 0 40px -12px rgba(200,149,108,0.35)" }
+                            : undefined
+                      }
+                  >
+                    <h3 className="display font-bold text-2xl tracking-tight mb-1 text-[#fdf6ee]">
+                      {proj.name}
+                    </h3>
+                    <p className="text-sm mb-3 text-[#c8956c]">{proj.tagline}</p>
+                    <p className="text-sm leading-relaxed flex-1 text-[#a87c5a]">
+                      {proj.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-4 mb-4">
+                      {proj.stack.map((s) => (
+                          <span
+                              key={s}
+                              className="text-xs px-2 py-0.5 bg-[#2a1508]/80 text-[#a87c5a]"
+                              style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                          >
                       {s}
                     </span>
-                  ))}
-                </div>
-                <a
-                  href={proj.link}
-                  className="focusable text-sm font-medium text-sky-300 hover:underline"
-                >
-                  View repo ↗
-                </a>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* ---------- Skills ---------- */}
-        <section id="skills" className="pb-24 scroll-mt-20">
-          <SectionLabel>skills</SectionLabel>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {SKILLS.map(({ group, items }) => (
-              <div key={group} className="bg-[#0c1428]/80 border border-slate-800 p-6">
-                <h3
-                  className="text-xs uppercase tracking-widest text-slate-500 mb-4"
-                  style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-                >
-                  {group}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <span
-                      key={item}
-                      className="text-sm px-3 py-1 border border-slate-700 text-slate-300"
+                      ))}
+                    </div>
+                    <a
+                        href={proj.link}
+                        className="focusable text-sm font-medium text-[#e8bfa0] hover:underline"
                     >
+                      View repo ↗
+                    </a>
+                  </article>
+              ))}
+            </div>
+          </section>
+
+          {/* ---------- Skills ---------- */}
+          <section id="skills" className="pb-24 scroll-mt-20">
+            <SectionLabel>skills</SectionLabel>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {SKILLS.map(({ group, items }) => (
+                  <div key={group} className="bg-[#1c1008]/80 border border-[#3d2410] p-6">
+                    <h3
+                        className="text-xs uppercase tracking-widest text-[#7a5538] mb-4"
+                        style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                    >
+                      {group}
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {items.map((item) => (
+                          <span
+                              key={item}
+                              className="text-sm px-3 py-1 border border-[#3d2410] text-[#d4b896]"
+                          >
                       {item}
                     </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+                      ))}
+                    </div>
+                  </div>
+              ))}
+            </div>
+          </section>
 
-        {/* ---------- Footer ---------- */}
-        <footer className="border-t border-slate-800 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p
-            className="text-xs text-slate-500"
-            style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-          >
-            © {new Date().getFullYear()} Dhyan — built with React, somewhere in the Orion Arm
-          </p>
-          <div className="flex gap-5 text-sm">
-            <a href="https://github.com/" target="_blank" rel="noreferrer" className="focusable text-slate-400 hover:text-sky-300">
-              GitHub
-            </a>
-            <a href="https://linkedin.com/" target="_blank" rel="noreferrer" className="focusable text-slate-400 hover:text-sky-300">
-              LinkedIn
-            </a>
-            <a href="mailto:you@example.com" className="focusable text-slate-400 hover:text-sky-300">
-              Email
-            </a>
-          </div>
-        </footer>
-      </main>
-    </div>
+          {/* ---------- Footer ---------- */}
+          <footer className="border-t border-[#3d2410] py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p
+                className="text-xs text-[#7a5538]"
+                style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+            >
+              © {new Date().getFullYear()} Dhyan — built with React, somewhere in the Orion Arm
+            </p>
+            <div className="flex gap-5 text-sm">
+              <a href="https://github.com/dhyansuresh" target="_blank" rel="noreferrer" className="focusable text-[#a87c5a] hover:text-[#e8bfa0]">
+                GitHub
+              </a>
+              <a href="https://linkedin.com/in/dhyansuresh" target="_blank" rel="noreferrer" className="focusable text-[#a87c5a] hover:text-[#e8bfa0]">
+                LinkedIn
+              </a>
+              <a href="mailto:dhyan.sur@gmail.com" className="focusable text-[#a87c5a] hover:text-[#e8bfa0]">
+                Email
+              </a>
+            </div>
+          </footer>
+        </main>
+      </div>
   );
 }
