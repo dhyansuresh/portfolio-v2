@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
+import ProjectsCarousel from "./ProjectsCarousel";
 import photo1 from './images/photo1.jpeg'
 import photo2 from './images/photo2.jpeg'
 import photo3 from './images/photo3.jpeg'
@@ -9,68 +10,24 @@ const EXPERIENCE = [
     org: "West Networks",
     period: "May 2023 — May 2024",
     points: [
-      "Built and deployed 100+ portable Peplink BR2 Pro/BR1 routers with rechargeable lithium battery and 4G/5G antennas.",
-      "Configured dual-SIM protocol system enabling devices to switch between cellular providers for optimal performance in remote deployments.",
+      "Built and deployed 100+ portable Peplink BR2 Pro/BR1 routers with rechargeable lithium battery and 4G/5G antennas.", +
+      "Configured dual-SIM protocol system enabling devices to switch between cellular providers for optimal" +
+      "performance in remote deployments.",
       "Monitored global network infrastructure via InControl software, tracking real-time operational status."
     ],
     stack: ["", ""],
   },
   {
     role: "Marketing Lead",
-    org: "Google Developer Student Club @ UC",
+    org: "Google Developer Student Club @ UCF",
     period: "Aug. 2024 – April 2024",
     points: [
       "Managed social media accounts to generate community engagement and networking opportunities among club members and external partners.",
       "Collaborated with local organizations to plan and execute technical workshops",
-        "Facilitate weekly club meetings, ensuring effective communication and project alignment among team members."
+      "Facilitate weekly club meetings, ensuring effective communication and project alignment among team members."
     ],
     stack: [],
   },
-];
-
-const PROJECTS = [
-  {
-    name: "ASL Interpreter",
-    tagline: "Real-time sign language recognition in the browser",
-    description:
-        "Browser-based American Sign Language interpreter using live hand-landmark tracking. Live video is processed frame-by-frame and recognized signs are spoken aloud.",
-    stack: ["React", "TensorFlow.js", "MediaPipe Hands", "Web Speech API", "Vite"],
-    link: "https://github.com/dhyansuresh/asl-interpreter.git",
-    highlight: true,
-  },
-  {
-    name: "GameDay",
-    tagline: "Web watch party app enabling users to create, join, and manage world cup watch parties.",
-    description:
-        "Fullstack application that allows world cup enthusiasts to find local groups to watch matches with.",
-    stack: ["JavaScript", "React", "Firebase(Auth/Firestore)", "Vite", "React Router"],
-    link: "https://github.com/dhyansuresh/wc-watch-party-bloomhacks2026.git",
-    highlight: false,
-  },
-  {
-    name: "Lead Tracker",
-    tagline: "Chrome extension for capturing and syncing leads",
-    description:
-        "A Chrome extension that saves leads from any page with one click, persists them locally, and syncs across devices through a realtime cloud database.",
-    stack: ["JavaScript", "Chrome Extension API", "Firebase", "localStorage"],
-    link: "https://github.com/dhyansuresh/chrome-leads-tracker.git",
-    highlight: false,
-  },
-  {
-    name: "AI Legal Document Organizer",
-    tagline: "Helps lawyer organize documentation and paperwork via Google Gemini.",
-    description: "This was created at my very first KnightHack.",
-    stack: ["Python", "FastAPI", "Google Gemini AI", "React"],
-    link: "https://github.com/dhyansuresh/morgan-legaltender.git",
-    highlight: false,
-  },
-  {
-    name: "Portfolio Version 1",
-    tagline: "My very first personal site.",
-    description: "This first site from pure HTML/CSS and a very small amount of JavaScript.",
-    stack: ["HMTL/CSS", "JavaScript"],
-    link: "https://github.com/dhyansuresh/personal-site-v1.git"
-  }
 ];
 
 const SKILLS = [
@@ -197,7 +154,6 @@ function FloatingPhotos() {
   );
 }
 
-// ---------------------------------------------------------------
 // Milky Way intro
 // "Structure of the Milky Way" model:
 
@@ -222,7 +178,6 @@ function project(theta, r) {
   return { x: GALAXY.cx + xr, y: GALAXY.cy + yr * 0.92 };
 }
 
-// The four major arms, matching the reference model.
 const ARM_DEFS = [
   { name: "Perseus arm", offset: 0, labelT: 3.75 },
   { name: "Cygnus arm", offset: Math.PI / 2, labelT: 3.75 },
@@ -332,9 +287,9 @@ function buildGalaxyStars() {
   return stars;
 }
 
-// ---------------------------------------------------------------
-// Stage 2 — inside the Orion arm.
 
+
+// load into the orion belt
 const ORION_EARTH = { x: 47, y: 58 };
 
 const ORION_LABELED_STARS = [
@@ -388,14 +343,12 @@ function buildOrionStars() {
   return stars;
 }
 
-// ---------------------------------------------------------------
 // UniverseIntro — stage machine with zoom transitions
-// ---------------------------------------------------------------
 
 function UniverseIntro({ onEnter, arriving }) {
   // arriving=true means we're coming back from the portfolio:
   // start inside the Orion arm, zoomed in, and pull back.
-  const [stage, setStage] = useState(arriving ? "orion" : "galaxy");
+  const [stage, setStage] = useState("orion");
   const [galaxyAnim, setGalaxyAnim] = useState("");
   const [orionAnim, setOrionAnim] = useState(arriving ? "zoom-pre" : "");
   const busy = useRef(false);
@@ -569,11 +522,11 @@ function UniverseIntro({ onEnter, arriving }) {
 
   // Scroll / swipe navigation between stages.
   useEffect(() => {
-    const down = () => (stageRef.current === "galaxy" ? goOrion() : goPortfolio());
-    const up = () => stageRef.current === "orion" && goGalaxy();
+    const down = () => goPortfolio();
+    const up = {};
     const onWheel = (e) => {
       if (e.deltaY > 25) down();
-      else if (e.deltaY < -25) up();
+      else if (e.deltaY < -25);
     };
     const onTouchStart = (e) => (touchY.current = e.touches[0].clientY);
     const onTouchMove = (e) => {
@@ -599,8 +552,8 @@ function UniverseIntro({ onEnter, arriving }) {
   }, []);
 
   const isGalaxy = stage === "galaxy";
-  const zoomClass = isGalaxy ? galaxyAnim : orionAnim;
-  const origin = isGalaxy ? SUN_POS : ORION_EARTH;
+  const zoomClass = orionAnim;
+  const origin = ORION_EARTH;
 
   return (
       <div
@@ -961,9 +914,7 @@ function UniverseIntro({ onEnter, arriving }) {
               className="absolute top-8 left-1/2 -translate-x-1/2 text-[11px] tracking-widest uppercase text-[#7a5538] text-center px-4"
               style={{ fontFamily: "'IBM Plex Mono', monospace" }}
           >
-            {isGalaxy
-                ? "~26,000 light-years out"
-                : "~3,500 light-years out"}
+            <span>the orion arm · ~3,500 light-years out</span>
           </p>
           <p
               className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs text-[#7a5538] flex items-center gap-2 whitespace-nowrap"
@@ -972,18 +923,14 @@ function UniverseIntro({ onEnter, arriving }) {
                 animation: "hintFade 2.6s ease-in-out infinite",
               }}
           >
-            {isGalaxy ? (
-                <span>scroll down to fly into the orion arm ↓</span>
-            ) : (
-                <span>↓ scroll down to land on earth · scroll up for the full galaxy ↑</span>
-            )}
+            <span>scroll down to land on earth ↓</span>
           </p>
         </div>
       </div>
   );
 }
 
-// ---------------------------------------------------------------
+//
 // Shared pieces
 
 // 21 MediaPipe hand landmarks — a nod to the ASL interpreter.
@@ -1186,7 +1133,7 @@ export default function Portfolio() {
 
         <AmbientStars />
 
-        {/* ---------- Nav ---------- */}
+        {/*  Nav bar  */}
         <header className="sticky top-0 z-40 border-b border-[#3d2410]/80 backdrop-blur bg-[#0a0603]/80
 ">
           <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
@@ -1240,7 +1187,7 @@ export default function Portfolio() {
         </header>
 
         <main className="max-w-5xl mx-auto px-6 relative">
-          {/* ---------- About ---------- */}
+          {/*  About  */}
           <section id="about" className="pt-16 pb-24">
             <p
                 className="text-xs text-[#5a3820] mb-10 flex items-center gap-2"
@@ -1255,24 +1202,25 @@ export default function Portfolio() {
                     className="text-[#c8956c] text-sm mb-4 tracking-widest uppercase"
                     style={{ fontFamily: "'IBM Plex Mono', monospace" }}
                 >
-                  cs student · builder · orlando, fl
+                  student · dev · orlando, fl
                 </p>
                 <h1 className="display font-black text-5xl sm:text-6xl leading-none tracking-tight mb-6 text-[#fdf6ee]">
                   Hey,
                   <br />
-                  My name is  <span className="text-stone-400">Dhyan Suresh!</span>
+                  My name is  <span className="text-[#c8956c]">Dhyan Suresh!</span>
                 </h1>
                 <p className="text-[#a87c5a] max-w-lg leading-relaxed mb-8">
-                  I'm a computer science student currently attending the University of Central Florida! (Go Knights!)
-                  I've been honing my technical skills via hackathons, projects, and classwork. Check out my page to learn more about me!
+                  Welcome to my site. Scroll down to get to know me and see what I've been working on!
                 </p>
                 <div className="flex gap-4">
-                  <button
-                      onClick={() => scrollTo("projects")}
+                  <a
+                      href="/resume_temp.pdf"
+                      target="_blank"
+                      rel="noreferrer"
                       className="focusable bg-[#c8956c] text-[#0a0603] px-5 py-2.5 text-sm font-semibold hover:bg-[#e8bfa0] transition-colors"
                   >
-                    View projects
-                  </button>
+                    Resume ↗
+                  </a>
                   <a
                       href="https://github.com/dhyansuresh"
                       target="_blank"
@@ -1291,7 +1239,7 @@ export default function Portfolio() {
           </section>
 
 
-          {/* ---------- Experience ---------- */}
+          {/*  Experience  */}
           <section id="experience" className="pb-24 scroll-mt-20">
             <SectionLabel>experience</SectionLabel>
             <div className="space-y-6">
@@ -1338,48 +1286,7 @@ export default function Portfolio() {
           {/* ---------- Projects ---------- */}
           <section id="projects" className="pb-24 scroll-mt-20">
             <SectionLabel>projects</SectionLabel>
-            <div className="grid md:grid-cols-3 gap-6">
-              {PROJECTS.map((proj) => (
-                  <article
-                      key={proj.name}
-                      className={`p-6 flex flex-col border transition-transform duration-300 hover:-translate-y-2 ${
-                          proj.highlight
-                              ? "md:col-span-2 border-[#c8956c]/50 bg-gradient-to-br from-[#261508] to-[#1a0c04]"
-                              : "bg-[#1c1008]/80 border-[#3d2410]"
-                      }`}
-                      style={
-                        proj.highlight
-                            ? { boxShadow: "0 0 40px -12px rgba(200,149,108,0.35)" }
-                            : undefined
-                      }
-                  >
-                    <h3 className="display font-bold text-2xl tracking-tight mb-1 text-[#fdf6ee]">
-                      {proj.name}
-                    </h3>
-                    <p className="text-sm mb-3 text-[#c8956c]">{proj.tagline}</p>
-                    <p className="text-sm leading-relaxed flex-1 text-[#a87c5a]">
-                      {proj.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mt-4 mb-4">
-                      {proj.stack.map((s) => (
-                          <span
-                              key={s}
-                              className="text-xs px-2 py-0.5 bg-[#2a1508]/80 text-[#a87c5a]"
-                              style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-                          >
-                      {s}
-                    </span>
-                      ))}
-                    </div>
-                    <a
-                        href={proj.link}
-                        className="focusable text-sm font-medium text-[#e8bfa0] hover:underline"
-                    >
-                      View repo ↗
-                    </a>
-                  </article>
-              ))}
-            </div>
+            <ProjectsCarousel />
           </section>
 
           {/* ---------- Skills ---------- */}
