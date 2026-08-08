@@ -183,6 +183,20 @@ export default function ProjectsCarousel() {
     const dragging = useRef(false);
     const viewportRef = useRef(null);
 
+    // cell phone view
+    const [isMobile, setIsMobile] = useState(
+        typeof window != "undefined" && window.innerWidth < 768
+    );
+
+    useEffect(() => {
+        const onResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, []);
+
+    const cardWidth = isMobile ? 100 : 88;
+    const edgeOffset = (100 - cardWidth) / 2;
+
     const go = (i) => setIndex(Math.max(0, Math.min(total - 1, i)));
     const next = () => go(index + 1);
     const prev = () => go(index - 1);
@@ -260,8 +274,14 @@ export default function ProjectsCarousel() {
                 onTouchEnd={onTouchEnd}
             >
                 <div
-                    className="flex transition-transform duration-500 ease-out"
-                    style={{ transform: `translateX(calc(-${index * 55}% + 6%))` }}
+                    className={`flex-shrink-0 px-3 transition-all duration-500 ease-out ${
+                        active ? "" : "cursor-pointer"
+                    }`}
+                    style={{
+                        width: `${cardWidth}%`,
+                        transform: active || isMobile ? "scale(1)" : "scale(0.9)",
+                        opacity: active || isMobile ? 1 : 0.4,
+                    }}
                 >
                     {PROJECTS.map((proj, i) => {
                         const active = i === index;
