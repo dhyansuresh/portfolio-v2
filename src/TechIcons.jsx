@@ -38,6 +38,7 @@ export const TECH_ICONS = {
     Vercel: ["vercel", "original"],
     Linux: ["linux", "original"],
     Docker: ["docker", "original"],
+    Render: "https://cdn.simpleicons.org/render",
 
     // misc
     OAuth: ["google", "original"],

@@ -115,7 +115,6 @@ export function ShotViewer({ shots, name, fit = "cover" }) {
                 )}
             </div>
 
-            {/* portaled to body — the carousel's transforms would trap position:fixed */}
             {open && createPortal(
                 <div
                     onClick={() => setOpen(false)}

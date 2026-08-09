@@ -45,7 +45,7 @@ export const SKILLS = [
     },
     {
         group: "Developer Tools",
-        items: ["Git", "GitHub", "Firebase", "AWS", "Docker", "Vercel",],
+        items: ["Git", "GitHub", "Render", "Docker", "Vercel", "Firebase", "AWS"],
     },
     {
         group: "Backend & Data",
@@ -72,7 +72,7 @@ export const PROJECTS = [
         stack: ["React", "TypeScript", "Node/Express", "PostgreSQL via Prisma", "Leaflet", "OAuth"],
         link: "https://github.com/dhyansuresh/SafeFlight.git",
         demo: "https://safeflight.onrender.com/",
-        shots: [safeflight1, safeflight2, safeflight3, safeflight4], // e.g. [shot1, shot2]
+        shots: [safeflight1, safeflight2, safeflight3, safeflight4],
     },
     {
         name: "ASL Interpreter",
