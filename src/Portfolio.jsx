@@ -214,6 +214,12 @@ export default function Portfolio() {
                     </div>
                 </section>
 
+                {/* projects */}
+                <section id="projects" className="pb-24 scroll-mt-20">
+                    <SectionLabel>projects</SectionLabel>
+                    <ProjectsCarousel/>
+                </section>
+
                 {/* experience */}
                 <section id="experience" className="pb-24 scroll-mt-20">
                     <SectionLabel>experience</SectionLabel>
@@ -221,48 +227,44 @@ export default function Portfolio() {
                         {EXPERIENCE.map((job) => (
                             <article
                                 key={`${job.org}-${job.role}`}
-                                className="bg-[#1c1008]/80 border border-[#3d2410] p-6 sm:p-8 grid sm:grid-cols-4 gap-4 transition-transform duration-300 hover:-translate-y-2"
+                                className="bg-[#1c1008]/80 border border-[#3d2410] p-6 sm:p-8 transition-transform duration-300 hover:-translate-y-2"
                             >
-                                <p
-                                    className="text-xs text-[#7a5538]"
-                                    style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-                                >
-                                    {job.period}
-                                </p>
-
-                                <div className="sm:col-span-3">
+                                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                                     <h3 className="display font-bold text-xl tracking-tight text-[#f5ede0]">
                                         {job.role}
                                     </h3>
-                                    <p className="text-[#c8956c] text-sm font-medium mb-3">{job.org}</p>
-                                    <ul className="space-y-1.5 text-[#a87c5a] text-sm leading-relaxed list-disc pl-4">
-                                        {job.points.map((point) => (
-                                            <li key={point}>{point}</li>
-                                        ))}
-                                    </ul>
-                                    {job.stack.length > 0 && (
-                                        <div className="flex flex-wrap gap-2 mt-4">
-                                            {job.stack.map((s) => (
-                                                <span
-                                                    key={s}
-                                                    className="text-xs px-2 py-0.5 bg-[#2a1508]/80 text-[#a87c5a]"
-                                                    style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-                                                >
-                                                    {s}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    )}
+                                    <p
+                                        className="text-xs text-[#7a5538] shrink-0"
+                                        style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                                    >
+                                        {job.period}
+                                    </p>
                                 </div>
+
+                                <p className="text-[#c8956c] text-sm font-medium mb-3">{job.org}</p>
+
+                                <ul className="space-y-1.5 text-[#a87c5a] text-sm leading-relaxed list-disc pl-4">
+                                    {job.points.map((point) => (
+                                        <li key={point}>{point}</li>
+                                    ))}
+                                </ul>
+
+                                {job.stack?.length > 0 && (
+                                    <div className="flex flex-wrap gap-2 mt-4">
+                                        {job.stack.map((s) => (
+                                            <span
+                                                key={s}
+                                                className="text-xs px-2 py-0.5 bg-[#2a1508]/80 text-[#a87c5a]"
+                                                style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                                            >
+                                                {s}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
                             </article>
                         ))}
                     </div>
-                </section>
-
-                {/* projects */}
-                <section id="projects" className="pb-24 scroll-mt-20">
-                    <SectionLabel>projects</SectionLabel>
-                    <ProjectsCarousel/>
                 </section>
 
                 {/* skills */}

@@ -3,19 +3,21 @@ import { createPortal } from "react-dom";
 import { TechTag } from "./TechIcons";
 import {PROJECTS} from "./data.js";
 
-// screenshot panel with its own prev/next and dots.
-// clicking an image opens it in a lightbox over the page.
-function ShotViewer({ shots, name }) {
+export function ShotViewer({ shots, name, fit = "cover" }) {
     const [i, setI] = useState(0);
     const [open, setOpen] = useState(false);
 
-    // reset when switching projects
     useEffect(() => setI(0), [name]);
 
     const total = shots ? shots.length : 0;
     const go = (n) => setI((n + total) % total);
 
-    // esc closes, arrows move while the lightbox is open
+    // ASL demo video
+    const current = shots?.[i];
+    const kind = typeof current === "object" ? current.type : "image";
+    const src = typeof current === "object" ? current.src : current;
+
+    // keyboard controls while the lightbox is open
     useEffect(() => {
         if (!open) return;
         const onKey = (e) => {
@@ -27,7 +29,7 @@ function ShotViewer({ shots, name }) {
         return () => window.removeEventListener("keydown", onKey);
     });
 
-    // stop the page scrolling behind the lightbox
+    // lock page scroll so the site doesn't move behind the lightbox
     useEffect(() => {
         if (!open) return;
         const prev = document.body.style.overflow;
@@ -59,12 +61,25 @@ function ShotViewer({ shots, name }) {
                     aria-label={`Enlarge ${name} screenshot`}
                     className="focusable block w-full overflow-hidden rounded-lg border border-[#3d2410] bg-[#140b05] cursor-zoom-in"
                 >
-                    <img
-                        src={shots[i]}
-                        alt={`${name} screenshot ${i + 1}`}
-                        className="w-full aspect-video object-cover object-top block"
-                        loading="lazy"
-                    />
+                    {kind === "youtube" ? (
+                        <iframe
+                            src={`https://www.youtube.com/embed/${src}`}
+                            title={`${name} demo`}
+                            className="w-full aspect-video block"
+                            allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
+                            allowFullScreen
+                        />
+                    ) : kind === "video" ? (
+                        <video src={src} className="w-full aspect-video object-cover block" muted loop autoPlay playsInline />
+                    ) : (
+                        <img
+                            src={src}
+                            alt={`${name} screenshot ${i + 1}`}
+                            className={`w-full aspect-16/7 block ${
+                                fit === "contain" ? "object-contain p-3" : "object-cover object-top"
+                            }`}
+                            loading="lazy" />
+                    )}
                 </button>
 
                 {total > 1 && (
@@ -100,8 +115,7 @@ function ShotViewer({ shots, name }) {
                 )}
             </div>
 
-            {/* lightbox — portaled to body so the carousel's transforms
-                can't trap `position: fixed` inside a card */}
+            {/* portaled to body — the carousel's transforms would trap position:fixed */}
             {open && createPortal(
                 <div
                     onClick={() => setOpen(false)}
@@ -126,14 +140,32 @@ function ShotViewer({ shots, name }) {
                         ×
                     </button>
 
-                    {/* stopPropagation so clicking the image itself doesn't close it */}
-                    <img
-                        src={shots[i]}
-                        alt={`${name} screenshot ${i + 1}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="max-w-[95vw] max-h-[92vh] w-auto h-auto object-contain rounded-lg shadow-2xl cursor-default"
-                        style={{ imageRendering: "auto" }}
-                    />
+                    {kind === "youtube" ? (
+                        <iframe
+                            src={`https://www.youtube.com/embed/${src}?autoplay=1`}
+                            title={`${name} demo`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="w-[95vw] max-w-5xl aspect-video rounded-lg shadow-2xl"
+                            allow="autoplay; encrypted-media; picture-in-picture"
+                            allowFullScreen
+                        />
+                    ) : kind === "video" ? (
+                        <video
+                            src={src}
+                            onClick={(e) => e.stopPropagation()}
+                            className="max-w-[95vw] max-h-[92vh] rounded-lg shadow-2xl"
+                            controls
+                            autoPlay
+                            playsInline
+                        />
+                    ) : (
+                        <img
+                            src={src}
+                            alt={`${name} screenshot ${i + 1}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="max-w-[95vw] max-h-[92vh] w-auto h-auto object-contain rounded-lg shadow-2xl cursor-default"
+                        />
+                    )}
 
                     {total > 1 && (
                         <>
@@ -183,7 +215,7 @@ export default function ProjectsCarousel() {
     const dragging = useRef(false);
     const viewportRef = useRef(null);
 
-    // cell phone view
+    // full-width cards on phones, peek layout on desktop
     const [isMobile, setIsMobile] = useState(
         typeof window != "undefined" && window.innerWidth < 768
     );
@@ -194,14 +226,13 @@ export default function ProjectsCarousel() {
         return () => window.removeEventListener("resize", onResize);
     }, []);
 
-    const cardWidth = isMobile ? 100 : 88;
+    const cardWidth = isMobile ? 100 : 76;
     const edgeOffset = (100 - cardWidth) / 2;
 
     const go = (i) => setIndex(Math.max(0, Math.min(total - 1, i)));
     const next = () => go(index + 1);
     const prev = () => go(index - 1);
 
-    // left/right arrow keys
     useEffect(() => {
         const onKey = (e) => {
             if (e.key === "ArrowRight") next();
@@ -232,7 +263,6 @@ export default function ProjectsCarousel() {
         return () => el.removeEventListener("wheel", onWheel);
     }, [total]);
 
-    // swipe
     const onTouchStart = (e) => (touchX.current = e.touches[0].clientX);
     const onTouchEnd = (e) => {
         if (touchX.current == null) return;
@@ -242,7 +272,6 @@ export default function ProjectsCarousel() {
         touchX.current = null;
     };
 
-    // drag the scrollbar
     const setFromClientX = (clientX) => {
         const track = trackRef.current;
         if (!track) return;
@@ -274,13 +303,9 @@ export default function ProjectsCarousel() {
                 onTouchEnd={onTouchEnd}
             >
                 <div
-                    className={`flex-shrink-0 px-3 transition-all duration-500 ease-out ${
-                        active ? "" : "cursor-pointer"
-                    }`}
+                    className="flex transition-transform duration-500 ease-out"
                     style={{
-                        width: `${cardWidth}%`,
-                        transform: active || isMobile ? "scale(1)" : "scale(0.9)",
-                        opacity: active || isMobile ? 1 : 0.4,
+                        transform: `translateX(calc(-${index * cardWidth}% + ${edgeOffset}%))`,
                     }}
                 >
                     {PROJECTS.map((proj, i) => {
@@ -289,26 +314,24 @@ export default function ProjectsCarousel() {
                             <article
                                 key={proj.name}
                                 onClick={() => !active && go(i)}
-                                className={`w-[55%] flex-shrink-0 px-3 transition-all duration-500 ease-out ${
+                                className={`flex-shrink-0 px-3 transition-all duration-500 ease-out ${
                                     active ? "" : "cursor-pointer"
                                 }`}
                                 style={{
-                                    transform: active ? "scale(1)" : "scale(0.9)",
-                                    opacity: active ? 1 : 0.4,
+                                    width: `${cardWidth}%`,
+                                    transform: active || isMobile ? "scale(1)" : "scale(0.9)",
+                                    opacity: active || isMobile ? 1 : 0.4,
                                 }}
                             >
-                                <div className="bg-[#1c1008]/80 border border-[#3d2410] rounded-lg p-6 sm:p-8">
-                                    {/* title */}
-                                    <h3 className="display font-black text-3xl sm:text-5xl tracking-tight text-[#fdf6ee] mb-5">
+                                <div className="bg-[#1c1008]/80 border border-[#3d2410] rounded-lg p-5 sm:p-6">
+                                    <h3 className="display font-black text-2xl sm:text-3xl tracking-tight text-[#fdf6ee] mb-5">
                                         {proj.name}
                                     </h3>
 
-                                    {/* screenshots — full width */}
                                     {proj.shots.length > 0 && (
                                         <ShotViewer shots={proj.shots} name={proj.name}/>
                                     )}
 
-                                    {/* tagline + description */}
                                     <p className="text-[#c8956c] text-lg sm:text-xl mt-6 mb-3 leading-snug">
                                         {proj.tagline}
                                     </p>
@@ -316,14 +339,12 @@ export default function ProjectsCarousel() {
                                         {proj.description}
                                     </p>
 
-                                    {/* stack */}
                                     <div className="flex flex-wrap gap-2 mt-6 mb-6">
                                         {proj.stack.map((s) => (
                                             <TechTag key={s} name={s}/>
                                         ))}
                                     </div>
 
-                                    {/* buttons */}
                                     <div className="flex flex-wrap gap-3">
                                         {proj.demo && (
                                             <a
@@ -353,7 +374,6 @@ export default function ProjectsCarousel() {
                 </div>
             </div>
 
-            {/* scrollbar + arrows */}
             <div className="mt-6 flex items-center gap-4">
                 <div
                     ref={trackRef}
@@ -381,7 +401,7 @@ export default function ProjectsCarousel() {
                         onClick={prev}
                         disabled={index === 0}
                         aria-label="Previous project"
-                        className="focusable w-9 h-9 rounded-full border border-[#3d2410] text-[#a87c5a] hover:border-[#c8956c] hover:text-[#e8bfa0] disabled:opacity-30 transition-colors flex items-center justify-center"
+                        className="focusable hidden md:flex absolute left-16 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 w-12 h-12 rounded-full bg-[#1c1008] border border-[#3d2410] text-[#d4b896] hover:border-[#c8956c] hover:text-[#e8bfa0] disabled:opacity-0 disabled:pointer-events-none transition-all items-center justify-center text-xl shadow-lg"
                     >
                         ←
                     </button>
@@ -389,7 +409,7 @@ export default function ProjectsCarousel() {
                         onClick={next}
                         disabled={index === total - 1}
                         aria-label="Next project"
-                        className="focusable w-9 h-9 rounded-full border border-[#3d2410] text-[#a87c5a] hover:border-[#c8956c] hover:text-[#e8bfa0] disabled:opacity-30 transition-colors flex items-center justify-center"
+                        className="focusable hidden md:flex absolute right-16 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 w-12 h-12 rounded-full bg-[#1c1008] border border-[#3d2410] text-[#d4b896] hover:border-[#c8956c] hover:text-[#e8bfa0] disabled:opacity-0 disabled:pointer-events-none transition-all items-center justify-center text-xl shadow-lg"
                     >
                         →
                     </button>
@@ -398,4 +418,3 @@ export default function ProjectsCarousel() {
         </div>
     );
 }
-

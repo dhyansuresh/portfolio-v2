@@ -24,7 +24,7 @@ export const TECH_ICONS = {
     "MediaPipe Hands": ["google", "original"],
     FastAPI: ["fastapi", "original"],
     "React Router": ["reactrouter", "original"],
-    Leaflet: ["leaflet", "original"],
+    Leaflet: "https://cdn.simpleicons.org/leaflet",
     Prisma: ["prisma", "original"],
     "PostgreSQL via Prisma": ["postgresql", "original"],
     PostgreSQL: ["postgresql", "original"],
@@ -58,9 +58,13 @@ export function TechTag({ name, size = "sm" }) {
     let lighten = false;
 
     if (entry) {
-        const [folder, variant] = entry;
-        src = `${BASE}/${folder}/${folder}-${variant}.svg`;
-        lighten = make_visable.has(folder);
+        if (typeof entry === "string") {
+            src = entry;
+        } else {
+            const [folder, variant] = entry;
+            src = `${BASE}/${folder}/${folder}-${variant}.svg`;
+            lighten = make_visable.has(folder);
+        }
     }
 
     return (

@@ -3,6 +3,12 @@ import safeflight2 from "./screenshots/safeflight2.png"
 import safeflight3 from "./screenshots/safeflight3.png"
 import safeflight4 from "./screenshots/safeflight4.png"
 
+import gameday1 from "./screenshots/gameday1.jpg"
+import gameday2 from "./screenshots/gameday2.jpg"
+import gameday3 from "./screenshots/gameday3.jpg"
+
+import aslDemo from "./videos/asl-demo.mp4";
+
 
 // site content
 export const EXPERIENCE = [
@@ -15,18 +21,16 @@ export const EXPERIENCE = [
             "Configured dual-SIM protocol system enabling devices to switch between cellular providers for optimal performance in remote deployments.",
             "Monitored global network infrastructure via InControl software, tracking real-time operational status.",
         ],
-        stack: ["Peplink", "InControl", "4G/5G"],
     },
     {
         role: "Marketing Lead",
         org: "Google Developer Student Club @ UCF",
-        period: "Aug. 2024 – April 2024",
+        period: "Aug. 2024 – April 2025",
         points: [
             "Managed social media accounts to generate community engagement and networking opportunities among club members and external partners.",
             "Collaborated with local organizations to plan and execute technical workshops.",
             "Facilitate weekly club meetings, ensuring effective communication and project alignment among team members.",
         ],
-        stack: [],
     },
 ];
 
@@ -51,8 +55,8 @@ export const SKILLS = [
 
 export const NAV = [
     { id: "about", label: "about" },
-    { id: "experience", label: "experience" },
     { id: "projects", label: "projects" },
+    { id: "experience", label: "experience" },
     { id: "skills", label: "skills" },
 ];
 
@@ -72,24 +76,38 @@ export const PROJECTS = [
     },
     {
         name: "ASL Interpreter",
-        tagline: "Real-time sign language recognition in the browser",
+        tagline: "Real-time sign language recognition via webcam (In progress)",
         description:
-            "Browser-based American Sign Language interpreter using live hand-landmark tracking. " +
-            "Live video is processed frame-by-frame and recognized signs are spoken aloud.",
+            "Web based ASL interpreter that turns live webcam signs into spoken words. " +
+            "Uses MediaPipe to track your hands in real time and a TensorFlow.js model to figure out what you're signing. " +
+            "Currently in development. I've gotten the hand tracking working and landmarks are drawing live on top of the video feed. " +
+            "Next up is building out the Python pipeline to prep training data from the ASL alphabet dataset.",
         stack: ["React", "TensorFlow.js", "MediaPipe Hands", "Web Speech API", "Vite"],
         link: "https://github.com/dhyansuresh/asl-interpreter.git",
         demo: "",
-        shots: [],
+        shots: [{type: "video", src: aslDemo}],
     },
     {
         name: "GameDay",
-        tagline: "Web watch party app for creating, joining, and managing world cup watch parties.",
+        tagline: "Watch party app for creating, joining, and managing world cup watch parties.",
         description:
-            "Fullstack application that allows world cup enthusiasts to find local groups to watch matches with.",
+            "Fullstack application that allows world cup enthusiasts to organize watch parties with" +
+            "other soccer fans. This project was done in a 3 person team for the 12-hour BloomHacks event.",
         stack: ["JavaScript", "React", "Firebase(Auth/Firestore)", "Vite", "React Router"],
         link: "https://github.com/dhyansuresh/wc-watch-party-bloomhacks2026.git",
         demo: "",
-        shots: [],
+        shots: [gameday1, gameday2, gameday3],
+    },
+    {
+        name: "AI Legal Document Organizer",
+        tagline: "Helps lawyers organize documentation and paperwork via Google Gemini.",
+        description: "This was created at my very first KnightHack.",
+        stack: ["Python", "FastAPI", "Google Gemini AI", "React"],
+        link: "https://github.com/dhyansuresh/morgan-legaltender.git",
+        demo: "",
+        shots: [
+            {type: "youtube", src: "9OBGld4TsmQ"}
+        ],
     },
     {
         name: "Lead Tracker",
@@ -99,15 +117,6 @@ export const PROJECTS = [
             "and syncs across devices through a realtime cloud database.",
         stack: ["JavaScript", "Chrome Extension API", "Firebase", "localStorage"],
         link: "https://github.com/dhyansuresh/chrome-leads-tracker.git",
-        demo: "",
-        shots: [],
-    },
-    {
-        name: "AI Legal Document Organizer",
-        tagline: "Helps lawyers organize documentation and paperwork via Google Gemini.",
-        description: "This was created at my very first KnightHack.",
-        stack: ["Python", "FastAPI", "Google Gemini AI", "React"],
-        link: "https://github.com/dhyansuresh/morgan-legaltender.git",
         demo: "",
         shots: [],
     },
