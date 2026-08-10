@@ -6,7 +6,7 @@ import { AmbientStars, SectionLabel } from "./ui";
 import { EXPERIENCE, NAV, SKILLS } from "./data";
 import {TechTag} from "./TechIcons.jsx";
 
-const RESUME_URL = "/resume_temp.pdf";
+const RESUME_URL = "/resume.pdf";
 const GITHUB_URL = "https://github.com/dhyansuresh";
 
 export default function Portfolio() {

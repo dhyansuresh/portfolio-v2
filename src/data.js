@@ -45,7 +45,7 @@ export const SKILLS = [
     },
     {
         group: "Developer Tools",
-        items: ["Git", "GitHub", "Render", "Docker", "Vercel", "Firebase", "AWS"],
+        items: ["Git", "GitHub", "Render", "Docker", "Vercel", "Firebase", "AWS"], Node
     },
     {
         group: "Backend & Data",
