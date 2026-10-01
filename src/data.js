@@ -13,23 +13,33 @@ import aslDemo from "./videos/asl-demo.mp4";
 // site content
 export const EXPERIENCE = [
     {
+        role: "Undergraduate Researcher",
+        org: "Knight Research Scholars Program at University of Central Florida "
+        period: "Sep 2026 - Present",
+        points: [
+            "Built a Python ankle-angle estimator with NumPy to produce estimates within 5◦ of ground-truth angles",
+            "Reduced initial ankle-angle estimation error (RMSE) by 98.3% by estimating foot and shank IMU bending axes from three-axis gyroscope data and filtering drift",
+            "Processed 392,360 IMU samples at 2,000 Hz and aligned them with 100 Hz OpenSim data using SciPy Butterworth filtering"
+        ],
+    },
+    {
         role: "Network Technician",
         org: "West Networks",
         period: "May 2023 — May 2024",
         points: [
-            "Built and deployed 100+ portable Peplink BR2 Pro/BR1 routers with rechargeable lithium battery and 4G/5G antennas.",
-            "Configured dual-SIM protocol system enabling devices to switch between cellular providers for optimal performance in remote deployments.",
-            "Monitored global network infrastructure via InControl software, tracking real-time operational status.",
+            "Built and deployed 100+ portable Peplink BR2 Pro/BR1 routers with dual lithium batteries, providing reliable remote connectivity for field sites",
+            "Configured dual-SIM protocol enabling auto-switching between cell carriers during link failures",
+            "Troubleshot field-site technical issues using Peplink InControl to diagnose cellular link failures on deployed routers"
         ],
     },
     {
         role: "Marketing Lead",
-        org: "Google Developer Student Club @ UCF",
+        org: "Google Developer Student Club at UCF",
         period: "Aug. 2024 – April 2025",
         points: [
-            "Managed social media accounts to generate community engagement and networking opportunities among club members and external partners.",
-            "Collaborated with local organizations to plan and execute technical workshops.",
-            "Facilitate weekly club meetings, ensuring effective communication and project alignment among team members.",
+            "Grew the club’s social media following by 50% through consistent event promotion and outreach",
+            "Promoted 12+ technical workshops over two semesters, averaging 20 student attendees per event",
+            "Coordinated weekly event planning and promotions for a five-member team, tracking deliverables in Trello",
         ],
     },
 ];
@@ -41,7 +51,7 @@ export const SKILLS = [
     },
     {
         group: "Frameworks & Libraries",
-        items: ["React", "TensorFlow.js", "Vite", "Tailwind CSS", "MediaPipe"],
+        items: ["React", "PyTorch", "Vite", "Tailwind CSS", "MediaPipe", "NumPy", "SciPy"],
     },
     {
         group: "Developer Tools",
