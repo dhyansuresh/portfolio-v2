@@ -182,7 +182,7 @@ export default function Portfolio() {
                             <h1 className="display font-black text-5xl sm:text-6xl leading-none tracking-tight mb-6 text-[#fdf6ee]">
                                 Hey,
                                 <br/>
-                                My name is <span className="text-[#c8956c]">Dhyan Suresh!</span>
+                                My name is <span className="text-[#c8956c]">Dhyan!</span>
                             </h1>
                             <p className="text-[#a87c5a] max-w-lg leading-relaxed mb-8">
                                 Welcome to my site. Scroll down to get to know me and see what I've
