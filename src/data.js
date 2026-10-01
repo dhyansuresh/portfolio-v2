@@ -14,7 +14,7 @@ import aslDemo from "./videos/asl-demo.mp4";
 export const EXPERIENCE = [
     {
         role: "Undergraduate Researcher",
-        org: "Knight Research Scholars Program at University of Central Florida "
+        org: "Knight Research Scholars Program at University of Central Florida ",
         period: "Sep 2026 - Present",
         points: [
             "Built a Python ankle-angle estimator with NumPy to produce estimates within 5◦ of ground-truth angles",
